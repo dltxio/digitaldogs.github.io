@@ -13,7 +13,7 @@ contract DogERC721Metadata is ERC165, ERC721, IERC721Metadata, Ownable {
         Male,
         Female
     }
-    
+
     struct Dog {
         string name;
         uint256 dob;
@@ -23,7 +23,7 @@ contract DogERC721Metadata is ERC165, ERC721, IERC721Metadata, Ownable {
         Sex sex;
         uint256 timestamp;
     }
-    
+
     mapping(address => bool) private _writers;
 
     Dog[] public pack;
@@ -43,8 +43,8 @@ contract DogERC721Metadata is ERC165, ERC721, IERC721Metadata, Ownable {
 
     //constructor (string memory name, string memory symbol) public {
     constructor () public {
-        _name = "BEAGLES"; //name;
-        _symbol = "DDA"; //symbol;
+        _name = "BEAGLES";
+        _symbol = "DDA";
 
         // register the supported interfaces to conform to ERC721 via ERC165
         _registerInterface(_INTERFACE_ID_ERC721_METADATA);
@@ -67,8 +67,23 @@ contract DogERC721Metadata is ERC165, ERC721, IERC721Metadata, Ownable {
         return pack.length;
     }
 
+    function addLitter(uint256 dob, uint256 dam, uint256 sire, uint numberOfMales, uint numberOfFemales, address owner) external payable onlyOwner() {
+        for (uint i = 0; i < numberOfMales; i++) {
+            _addPuppy("", dob, "", 0, dam, sire, owner);
+        }
+
+        for (uint i = 0; i < numberOfFemales; i++) {
+            _addPuppy("", dob, "", 1, dam, sire, owner);
+        }
+    }
+
     function addPuppy(string calldata dogsName, uint256 dob, string calldata microchip, Sex sex, uint256 dam, uint256 sire, address owner) external payable onlyOwner() {
         require(msg.value >= fee, "Fee too small");
+
+        _addPuppy(dogsName, dob, microchip, sex, dam, sire, owner);
+    }
+
+    function _addPuppy(string memory dogsName, uint256 dob, string memory microchip, Sex sex, uint256 dam, uint256 sire, address owner) internal {
         uint id = pack.length;
         pack.push(Dog(dogsName, dob, microchip, dam, sire, sex, now));
 
@@ -90,15 +105,19 @@ contract DogERC721Metadata is ERC165, ERC721, IERC721Metadata, Ownable {
         emit PuppyRemoved(_tokenId);
     }
 
-    function updateTitle(uint256 _tokenId, string calldata dogsName) external onlyOwner() {
-        pack[_tokenId].name = dogsName;
+    function updateTitle(uint256 _tokenId, string calldata _name) external onlyOwner() {
+        pack[_tokenId].name = _name;
+    }
+
+    function updateMicrochip(uint256 _tokenId, string calldata _microchip) external onlyOwner() {
+        pack[_tokenId].microchip = _microchip;
     }
 
     function setFee(uint256 _fee) public onlyOwner() {
         fee = _fee;
     }
 
-    function setTokenURI(uint256 tokenId, string memory uri) public onlyOwner() {
+    function _setTokenURI(uint256 tokenId, string memory uri) internal {
         require(_exists(tokenId), "Token does not exist");
         _tokenURIs[tokenId] = uri;
     }
