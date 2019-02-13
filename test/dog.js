@@ -11,12 +11,21 @@ contract("DogERC721Metadata", function(accounts) {
   describe('Dog functions', () => {
 
     beforeEach(async () => ( contractInstance = await Token.new("Beagles", "DDA") ));
+
+    //beforeEach(async () => ( contractInstance = await Token.new() ));
     
     it("should add new dog", async function () {
       await contractInstance.addPuppy("Forrest", 0, "CHIP1", 0, 0, 0, ALICE);
 
       const actual = await contractInstance.totalSupply();
       assert.equal(Number(actual), 1, "Total supply should be 1");
+    });
+
+    it("should add new litter", async function () {
+      await contractInstance.addLitter(0, 0, 0, 3, 4, BOB);
+
+      const actual = await contractInstance.totalSupply();
+      assert.equal(Number(actual), 7, "Total supply should be 7");
     });
   
     it("should get balance of to be 1", async function () {

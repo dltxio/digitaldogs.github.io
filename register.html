@@ -138,35 +138,14 @@
           }
         ];
 
-        const totalSupply_abi = [
-          {
-            "constant": true,
-            "inputs": [],
-            "name": "totalSupply",
-            "outputs": [
-              {
-                "name": "",
-                "type": "uint256"
-              }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-          }
-        ];
-        
-        //const eth = new Eth(new Eth.HttpProvider('http://digitaldogs.io:8545'));
-
-        const dog = eth.contract(totalSupply_abi).at(contractAddress);
-
         $("#register").click(function() {
 
-          const contractAddress = '0xe8542aa6c1e79eec8e30e2d5b1bc6dd20abc975c';
+          const contractAddress = '';
           const eth = new Eth(new Eth.HttpProvider('https://mainnet.infura.io'));
           const chainId = 0;
 
           //Contract owner
-          eth.getTransactionCount('0x64f1cfb285350f7426b33685ed3c300aaf0937a2').then((nonce) => {
+          eth.getTransactionCount('0x397A3e67a93C11F171ab04bF5Cc91101f9eDd84F').then((nonce) => {
             
             const name = document.getElementById('name').value;
             const dob = document.getElementById('dob').value;

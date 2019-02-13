@@ -41,7 +41,14 @@ contract DogERC721Metadata is ERC165, ERC721, IERC721Metadata, Ownable {
      *     bytes4(keccak256('tokenURI(uint256)'))
      */
 
-    //constructor (string memory name, string memory symbol) public {
+    // constructor (string memory name, string memory symbol) public {
+    //     _name = name;
+    //     _symbol = symbol;
+
+    //     // register the supported interfaces to conform to ERC721 via ERC165
+    //     _registerInterface(_INTERFACE_ID_ERC721_METADATA);
+    // }
+
     constructor () public {
         _name = "BEAGLES";
         _symbol = "DDA";
@@ -69,11 +76,11 @@ contract DogERC721Metadata is ERC165, ERC721, IERC721Metadata, Ownable {
 
     function addLitter(uint256 dob, uint256 dam, uint256 sire, uint numberOfMales, uint numberOfFemales, address owner) external payable onlyOwner() {
         for (uint i = 0; i < numberOfMales; i++) {
-            _addPuppy("", dob, "", 0, dam, sire, owner);
+            _addPuppy("", dob, "", Sex.Male, dam, sire, owner);
         }
 
         for (uint i = 0; i < numberOfFemales; i++) {
-            _addPuppy("", dob, "", 1, dam, sire, owner);
+            _addPuppy("", dob, "", Sex.Female, dam, sire, owner);
         }
     }
 
@@ -105,8 +112,8 @@ contract DogERC721Metadata is ERC165, ERC721, IERC721Metadata, Ownable {
         emit PuppyRemoved(_tokenId);
     }
 
-    function updateTitle(uint256 _tokenId, string calldata _name) external onlyOwner() {
-        pack[_tokenId].name = _name;
+    function updateTitle(uint256 _tokenId, string calldata _newName) external onlyOwner() {
+        pack[_tokenId].name = _newName;
     }
 
     function updateMicrochip(uint256 _tokenId, string calldata _microchip) external onlyOwner() {
