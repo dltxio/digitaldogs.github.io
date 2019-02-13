@@ -20,7 +20,6 @@
 
     <!-- Custom CSS -->
     <link href="./css/stylish-portfolio.min.css" rel="stylesheet">
-
   </head>
 
   <body id="page-top">
@@ -140,7 +139,7 @@
 
         $("#register").click(function() {
 
-          const contractAddress = '';
+          const contractAddress = '0x4390282c7d623edee9aacb971303077aba2d5e14';
           const eth = new Eth(new Eth.HttpProvider('https://mainnet.infura.io'));
           const chainId = 0;
 
@@ -161,7 +160,7 @@
             const txParams = {
                 nonce: nonce,
                 gasPrice: '0x1406F40', 
-                gasLimit: '0x3D0900',
+                gasLimit: '0x1E8480',
                 to: contractAddress, 
                 value: '0x00',
                 data: addDogFunction,
