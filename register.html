@@ -25,7 +25,58 @@
   <body id="page-top">
     <section class="callout" id="register">
       <div class="container text-center">
-        <h2 class="mx-auto mb-5">Register <em>your</em> dog on the blockchain!</h2>
+        <h2 class="mx-auto mb-5">Register</h2>
+            <div class="container-fluid">
+              <form>
+                  <div class="form-group">
+                    <label for="privateKey">Private Key</label>
+                    <input type="text" class="form-control" id="privateKey"/>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter name"/>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="name">Dob</label>
+                    <input type="number" class="form-control" id="dob">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="radio-inline"><input type="radio" name="sex" value="0"/> Male </label>
+                    <label class="radio-inline"><input type="radio" name="sex" value="1"/> Female </label>
+                  </div> 
+
+                  <div class="form-group">
+                    <label for="name">Microchip</label>
+                    <input type="text" class="form-control" id="microchip">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="name">Dam ID</label>
+                    <input type="number" class="form-control" id="dam" placeholder="0"/>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="name">Sire ID</label>
+                    <input type="number" class="form-control" id="sire" placeholder="0"/>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="name">Owner Public Key</label>
+                    <input type="text" class="form-control" id="owner" value="0xD009F888F95EFDe95199BaD766EFab74015b9239"/>
+                  </div>
+
+                  <a class="btn btn-primary btn-xl" id="register">Register</a>
+              </form>
+            </div>
+      </div>
+    </section>
+
+    <section class="callout" id="litter">
+      <!-- <div class="container text-center">
+        <h2 class="mx-auto mb-5">Add litter</h2>
             <div class="container-fluid">
               <form>
                   <div class="form-group">
@@ -71,7 +122,7 @@
                   <a class="btn btn-primary btn-xl" id="register">Register</a>
               </form>
             </div>
-      </div>
+        </div> -->
     </section>
 
     <!-- Scroll to Top Button-->
@@ -137,39 +188,51 @@
           }
         ];
 
-        $("#register").click(function() {
+        //https://opensea.io/assets/0x8f41dbc402d8f110f4ab8d551f41b821cbff0376/0
 
-          const contractAddress = '0x4390282c7d623edee9aacb971303077aba2d5e14';
-          const eth = new Eth(new Eth.HttpProvider('https://mainnet.infura.io'));
-          const chainId = 0;
+        const contractAddress = '0x4390282c7d623edee9aacb971303077aba2d5e14';
+        const eth = new Eth(new Eth.HttpProvider('https://mainnet.infura.io/v3/eaf5e0b4a01042a48211762c8d4eec44'));
+        const chainId = 0;
+
+        $("#register").click(function() {
 
           //Contract owner
           eth.getTransactionCount('0x397A3e67a93C11F171ab04bF5Cc91101f9eDd84F').then((nonce) => {
-            
+
             const name = document.getElementById('name').value;
-            const dob = document.getElementById('dob').value;
+
+            var dob = new Date(document.getElementById('dob').value);
+            dob = dob.getTime();
+
+            console.log(dob);
+
             const microchip = document.getElementById('microchip').value;
             const dam = document.getElementById('dam').value;
             const sire = document.getElementById('sire').value;
             const sex = $('input[name=sex]:checked').val();
             const owner = document.getElementById('owner').value;
+            const privateKey = document.getElementById('privateKey').value;
 
-            const privateKey = document.getElementById('privatekey').value;;
             const addDogFunction = ethAbi.encodeMethod(add_abi[0], [name, dob, microchip, dam, sire, sex, owner]);
 
             const txParams = {
                 nonce: nonce,
-                gasPrice: '0x1406F40', 
-                gasLimit: '0x1E8480',
+                gasPrice: '2000000000', //1406f40
+                gasLimit: '21000', //'0x1E8480',
                 to: contractAddress, 
                 value: '0x00',
                 data: addDogFunction,
                 chainId: chainId
             }
+
+            // var signedTx = ethSigner.sign(txParams, privateKey);
+            // alert(signedTx);
           
-            eth.sendRawTransaction(ethSigner.sign(txParams, privateKey)).then((txHash) => {
-              alert('Transaction ' + txHash);
-            });
+            // eth.sendRawTransaction(ethSigner.sign(txParams, privateKey)).then((txHash) => {
+            //   alert('Transaction ' + txHash);
+            // });
+
+            console.log(nonce);
         });
         });
       });
