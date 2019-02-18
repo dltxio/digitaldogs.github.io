@@ -139,13 +139,18 @@
             <div class="container-fluid">
               <form>
                   <div class="form-group">
+                    <label for="name">Private Key</label>
+                    <input type="text" class="form-control" id="privateKey" value=""/>
+                  </div>
+
+                  <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" id="name" placeholder="Enter name"/>
                   </div>
 
                   <div class="form-group">
                     <label for="name">Dob</label>
-                    <input type="number" class="form-control" id="dob"/>
+                    <input type="text" class="form-control" id="dob" placeholder="yyyyMMdd"/>
                   </div>
 
                   <div class="form-group">
@@ -170,7 +175,7 @@
 
                   <div class="form-group">
                     <label for="name">Owner Public Key</label>
-                    <input type="text" class="form-control" id="owner" value="0x9e1525DA6AB3498dda99B97dc13E79f4c44b79d8"/>
+                    <input type="text" class="form-control" id="owner" value="0xD009F888F95EFDe95199BaD766EFab74015b9239"/>
                   </div>
 
                   <a class="btn btn-primary btn-xl" id="register">Register</a>
@@ -227,14 +232,13 @@
     <script src="js/stylish-portfolio.min.js"></script>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ethjs@0.3.4/dist/ethjs.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ethjs-abi@0.2.1/lib/index.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ethjs-signer@0.1.1/lib/index.min.js"></script>
+    <script type="text/javascript" src="./js/ethjs-abi.min.js"></script>
+    <script type="text/javascript" src="./js/ethjs-signer.min.js"></script>
 
     <script>
       $(document).ready(function() {
 
-        const add_abi = [
-          {
+        const add_abi = {
             "constant": false,
             "inputs": [
               {
@@ -271,8 +275,7 @@
             "payable": true,
             "stateMutability": "payable",
             "type": "function"
-          }
-        ];
+          };
 
         const totalSupply_abi = [
           {
@@ -291,8 +294,8 @@
           }
         ];
 
-        const contractAddress = '0x08dd1ea8ca7c5f4264b9eb9272f506f07f94025c';
-        const eth = new Eth(new Eth.HttpProvider('https://rinkeby.infura.io'));
+        const contractAddress = '0x4390282c7d623edee9aacb971303077aba2d5e14';
+        const eth = new Eth(new Eth.HttpProvider('https://mainnet.infura.io/v3/eaf5e0b4a01042a48211762c8d4eec44'));
         //const eth = new Eth(new Eth.HttpProvider('http://digitaldogs.io:8545'));
 
         const dog = eth.contract(totalSupply_abi).at(contractAddress);
@@ -304,29 +307,32 @@
         $("#register").click(function() {
 
           //Contract owner
-          eth.getTransactionCount('0x64f1cfb285350f7426b33685ed3c300aaf0937a2').then((nonce) => {
+          eth.getTransactionCount('0x397a3e67a93c11f171ab04bf5cc91101f9edd84f').then((nonce) => {
             
             const name = document.getElementById('name').value;
-            const dob = document.getElementById('dob').value;
+            const dob = new Date(document.getElementById('dob').value).getTime() / 1000;
+
+            console.log(dob);
+
             const microchip = document.getElementById('microchip').value;
             const dam = document.getElementById('dam').value;
             const sire = document.getElementById('sire').value;
             const sex = $('input[name=sex]:checked').val();
             const owner = document.getElementById('owner').value;
+            const privateKey = document.getElementById('privateKey').value;
 
-            const privateKey = '0xcfdaa0e2b600272e752bd30d1bcbaf67bc1361942eb6f0236840a8903a65cd00';
-            const addDogFunction = ethAbi.encodeMethod(add_abi[0], [name, dob, microchip, dam, sire, sex, owner]);
+            const addDogFunction = ethAbi.encodeMethod(add_abi, [name, dob, microchip, dam, sire, sex, owner]);
 
             const txParams = {
                 nonce: nonce,
-                gasPrice: '0x1406F40', 
-                gasLimit: '0x3D0900',
+                gasPrice: 20000000000, //'0x1406F40', 
+                gasLimit: 300000, //'0x3D0900',
                 to: contractAddress, 
-                value: '0xE8D4A51000', //'0x00'
+                value: '0x00',
                 data: addDogFunction,
-                chainId: 4
+                chainId: 0
             }
-          
+            
             eth.sendRawTransaction(ethSigner.sign(txParams, privateKey)).then((txHash) => {
               alert('Transaction ' + txHash);
             });
