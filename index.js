@@ -9,10 +9,6 @@ const Abi = require('ethjs-abi');
 const Sign = require('ethjs-signer').sign;
 const EthereumTx = require('ethereumjs-tx');
 
-// const Eth = require('ethjs');
-// const EthereumTx = require('ethereumjs-tx');
-// const Abi = require('ethjs-abi');
-
 var app = express();
 app.use(express.json());
 
