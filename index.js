@@ -8,10 +8,6 @@ const Eth = require('ethjs');
 const Abi = require('ethjs-abi');
 const EthereumTx = require('ethereumjs-tx');
 
-// const Eth = require('ethjs');
-// const EthereumTx = require('ethereumjs-tx');
-// const Abi = require('ethjs-abi');
-
 var app = express();
 app.use(express.json());
 
@@ -178,4 +174,4 @@ app.get('/dogs', (req, res) => {
 // });
 
 
-app.listen(3000);
+app.listen(80);
