@@ -6,6 +6,7 @@ const dog = require('./build/contracts/DogERC721Metadata.json')
 
 const Eth = require('ethjs');
 const Abi = require('ethjs-abi');
+const Sign = require('ethjs-signer').sign;
 const EthereumTx = require('ethereumjs-tx');
 
 // const Eth = require('ethjs');
@@ -31,7 +32,7 @@ app.get('/home', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.render('index.hbs')
+    res.render('index.hbs');
 });
 
 app.get('/dog', (req, res) => {
@@ -110,22 +111,12 @@ app.post('/dog', (req, res) => {
             chainId: 4
         }
         
-        const tx = new EthereumTx(txParams);
-        tx.sign(privateKey);
-        const serializedTx = tx.serialize();
+        var tx = Sign(txParams, '0xcfdaa0e2b600272e752bd30d1bcbaf67bc1361942eb6f0236840a8903a65cd00');
+        console.log(tx);
 
-        // // const tx = new EthereumTx(txParams);
-        // // tx.sign(privateKey);
-
-        // // const serializedTx = tx.serialize();
-        // // console.log(serializedTx.toString('hex'));
-
-        eth.sendRawTransaction(serializedTx.toString('hex')).then((txHash) => {
-            //alert('Transaction ' + txHash);
+        eth.sendRawTransaction(tx).then((txHash) => {
             res.send(txHash);
         });
-
-        //res.send({signedData: serializedTx.toString('hex')});
     });
 });
 
@@ -148,34 +139,8 @@ app.get('/dogs', (req, res) => {
     });
 });
 
-
-// app.post('/ethstore', (req, res) => {    
-//     const eth = new Eth(new Eth.HttpProvider(settings.Ethereum.Node));
-//     eth.getTransactionCount(req.body.who).then((nonce) => {
-//         console.log(Number(nonce));
-    
-//         const privateKey = Buffer.from(req.body.privateKey, 'hex');
-//         const addDataFunction = Abi.encodeMethod(repository.abi[0], [req.body.data]);
-
-//         const txParams = {
-//             nonce: nonce,
-//             gasPrice: settings.Ethereum.GasPrice, 
-//             gasLimit: settings.Ethereum.GasLimit,
-//             to: req.body.contract, 
-//             value: '0x00', 
-//             data: addDataFunction,
-//             chainId: settings.Ethereum.ChainId
-//         }
-        
-//         const tx = new EthereumTx(txParams);
-//         tx.sign(privateKey);
-
-//         const serializedTx = tx.serialize();
-//         console.log(serializedTx.toString('hex'));
-
-//         res.send({signedData: serializedTx.toString('hex')});
-//     });
-// });
-
+app.get('/key', (req, res) => {
+    res.send('0x00');
+});
 
 app.listen(3000);
