@@ -6,6 +6,7 @@ const dog = require('./build/contracts/DogERC721Metadata.json')
 
 const Eth = require('ethjs');
 const Abi = require('ethjs-abi');
+const Sign = require('ethjs-signer').sign;
 const EthereumTx = require('ethereumjs-tx');
 
 var app = express();
@@ -29,7 +30,7 @@ app.get('/home', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.render('index.hbs')
+    res.render('index.hbs');
 });
 
 app.get('/dog', (req, res) => {
@@ -87,7 +88,7 @@ app.post('/dog', (req, res) => {
               "type": "function"
             };
 
-        const name = 'pup';
+        const name = req.body.name;
         const dob = 2000;
         const microchip = '';
         const dam = 0;
@@ -107,22 +108,12 @@ app.post('/dog', (req, res) => {
             chainId: 4
         }
         
-        const tx = new EthereumTx(txParams);
-        tx.sign(privateKey);
-        const serializedTx = tx.serialize();
+        var tx = Sign(txParams, '0xcfdaa0e2b600272e752bd30d1bcbaf67bc1361942eb6f0236840a8903a65cd00');
+        console.log(tx);
 
-        // // const tx = new EthereumTx(txParams);
-        // // tx.sign(privateKey);
-
-        // // const serializedTx = tx.serialize();
-        // // console.log(serializedTx.toString('hex'));
-
-        eth.sendRawTransaction(serializedTx.toString('hex')).then((txHash) => {
-            //alert('Transaction ' + txHash);
+        eth.sendRawTransaction(tx).then((txHash) => {
             res.send(txHash);
         });
-
-        //res.send({signedData: serializedTx.toString('hex')});
     });
 });
 
@@ -143,6 +134,19 @@ app.get('/dogs', (req, res) => {
     contract.name().then((data) => {
         res.send(data);
     });
+});
+
+app.get('/count', (req, res) => {
+    const eth = new Eth(new Eth.HttpProvider(node));
+    const contract = eth.contract(dog.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+
+    contract.totalSupply().then((data) => {
+        res.send(data);
+    });
+});
+
+app.get('/key', (req, res) => {
+    res.send('0x00');
 });
 
 app.listen(3000);
