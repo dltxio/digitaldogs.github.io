@@ -6,6 +6,7 @@ const dog = require('./build/contracts/DogERC721Metadata.json')
 
 const Eth = require('ethjs');
 const Abi = require('ethjs-abi');
+const EthereumTx = require('ethereumjs-tx');
 
 // const Eth = require('ethjs');
 // const EthereumTx = require('ethereumjs-tx');
@@ -87,10 +88,7 @@ app.post('/dog', (req, res) => {
               "payable": true,
               "stateMutability": "payable",
               "type": "function"
-            }
-          ;
-
-        //console.log(add_abi);
+            };
 
         const name = 'pup';
         const dob = 2000;
@@ -99,29 +97,33 @@ app.post('/dog', (req, res) => {
         const sire = 0; 
         const sex = 0;
         const owner = '0x9e1525DA6AB3498dda99B97dc13E79f4c44b79d8';
-        const privateKey = Buffer.from('0xcfdaa0e2b600272e752bd30d1bcbaf67bc1361942eb6f0236840a8903a65cd00', 'hex');
+        const privateKey = Buffer.from('cfdaa0e2b600272e752bd30d1bcbaf67bc1361942eb6f0236840a8903a65cd00', 'hex');
         const addPuppy = Abi.encodeMethod(add_abi, [name, dob, microchip, dam, sire, sex, owner]);
 
-        // const txParams = {
-        //     nonce: nonce,
-        //     gasPrice: 21000, 
-        //     gasLimit:  4000000,
-        //     to: '0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c', 
-        //     value: '0x00', 
-        //     data: addPuppy,
-        //     chainId: 4
-        // }
+        const txParams = {
+            nonce: nonce,
+            gasPrice: 21000, 
+            gasLimit:  4000000,
+            to: '0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c', 
+            value: '0x00', 
+            data: addPuppy,
+            chainId: 4
+        }
         
+        const tx = new EthereumTx(txParams);
+        tx.sign(privateKey);
+        const serializedTx = tx.serialize();
+
         // // const tx = new EthereumTx(txParams);
         // // tx.sign(privateKey);
 
         // // const serializedTx = tx.serialize();
         // // console.log(serializedTx.toString('hex'));
 
-        // eth.sendRawTransaction(ethSigner.sign(txParams, privateKey)).then((txHash) => {
-        //     //alert('Transaction ' + txHash);
-        //     res.send(txHash);
-        // });
+        eth.sendRawTransaction(serializedTx.toString('hex')).then((txHash) => {
+            //alert('Transaction ' + txHash);
+            res.send(txHash);
+        });
 
         //res.send({signedData: serializedTx.toString('hex')});
     });
