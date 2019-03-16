@@ -19,6 +19,8 @@ app.use(express.static(__dirname + '/js'));
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/vendor'));
 
+const node = 'http://192.168.1.130:8545';
+
 app.get('/home', (req, res) => {
     res.send({
         plaintext: result,
@@ -31,7 +33,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/dog', (req, res) => {
-    const eth = new Eth(new Eth.HttpProvider('http://192.168.1.130:8545')); //https://rinkeby.infura.io
+    const eth = new Eth(new Eth.HttpProvider(node));
     const contract = eth.contract(dog.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
 
     contract.pack(req.query.id).then((data) => {
@@ -40,8 +42,7 @@ app.get('/dog', (req, res) => {
 });
 
 app.post('/dog', (req, res) => {
-    const eth = new Eth(new Eth.HttpProvider('http://192.168.1.130:8545')); //https://rinkeby.infura.io
-    const contract = eth.contract(dog.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+    const eth = new Eth(new Eth.HttpProvider(node));
 
     eth.getTransactionCount('0xbd9f7daee6d5fc5595567aed84f0f52d694f056c').then((nonce) => {
         console.log(Number(nonce));
@@ -143,35 +144,5 @@ app.get('/dogs', (req, res) => {
         res.send(data);
     });
 });
-
-
-// app.post('/ethstore', (req, res) => {    
-//     const eth = new Eth(new Eth.HttpProvider(settings.Ethereum.Node));
-//     eth.getTransactionCount(req.body.who).then((nonce) => {
-//         console.log(Number(nonce));
-    
-//         const privateKey = Buffer.from(req.body.privateKey, 'hex');
-//         const addDataFunction = Abi.encodeMethod(repository.abi[0], [req.body.data]);
-
-//         const txParams = {
-//             nonce: nonce,
-//             gasPrice: settings.Ethereum.GasPrice, 
-//             gasLimit: settings.Ethereum.GasLimit,
-//             to: req.body.contract, 
-//             value: '0x00', 
-//             data: addDataFunction,
-//             chainId: settings.Ethereum.ChainId
-//         }
-        
-//         const tx = new EthereumTx(txParams);
-//         tx.sign(privateKey);
-
-//         const serializedTx = tx.serialize();
-//         console.log(serializedTx.toString('hex'));
-
-//         res.send({signedData: serializedTx.toString('hex')});
-//     });
-// });
-
 
 app.listen(3000);
