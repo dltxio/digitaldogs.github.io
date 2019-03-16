@@ -25,7 +25,8 @@ contract DogERC721Metadata is ERC165, ERC721, IERC721Metadata, Ownable {
     }
 
     mapping(address => bool) private _writers;
-
+    mapping(bytes32 => Dog) private _dogs;
+    
     Dog[] public pack;
     uint256 public fee;
 
