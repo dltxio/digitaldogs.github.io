@@ -1,13 +1,13 @@
 const settings = require('./settings.json');
 const express = require('express');
-const hbs = require('hbs');
+//const hbs = require('hbs');
 
 // const Eth = require('ethjs');
 // const EthereumTx = require('ethereumjs-tx');
 // const Abi = require('ethjs-abi');
 
 var app = express();
-//app.use(express.json());
+app.use(express.json());
 
 app.set('view engine', 'hbs');
 
@@ -26,6 +26,10 @@ app.get('/home', (req, res) => {
 
 app.get('/index', (req, res) => {
     res.render('index.hbs')
+});
+
+app.get('/api/dogs', (req, res) = {
+
 });
 
 app.listen(3001);
