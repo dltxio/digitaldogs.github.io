@@ -7,7 +7,6 @@ const dog = require('./build/contracts/DogERC721Metadata.json')
 const Eth = require('ethjs');
 const Abi = require('ethjs-abi');
 const Sign = require('ethjs-signer').sign;
-const EthereumTx = require('ethereumjs-tx');
 
 var app = express();
 app.use(express.json());
@@ -21,6 +20,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/vendor'));
 
 const node = 'http://192.168.1.130:8545';
+//const node = 'https://rinkeby.infura.io';
 
 app.get('/home', (req, res) => {
     res.send({
@@ -48,6 +48,8 @@ app.post('/dog', (req, res) => {
     eth.getTransactionCount('0xbd9f7daee6d5fc5595567aed84f0f52d694f056c').then((nonce) => {
         console.log(Number(nonce));
     
+        console.log(req.body);
+
         const add_abi = 
             {
               "constant": false,
@@ -95,13 +97,13 @@ app.post('/dog', (req, res) => {
         const sire = 0; 
         const sex = 0;
         const owner = '0x9e1525DA6AB3498dda99B97dc13E79f4c44b79d8';
-        const privateKey = Buffer.from('cfdaa0e2b600272e752bd30d1bcbaf67bc1361942eb6f0236840a8903a65cd00', 'hex');
+        //const privateKey = Buffer.from('cfdaa0e2b600272e752bd30d1bcbaf67bc1361942eb6f0236840a8903a65cd00', 'hex');
         const addPuppy = Abi.encodeMethod(add_abi, [name, dob, microchip, dam, sire, sex, owner]);
 
         const txParams = {
-            nonce: nonce,
-            gasPrice: 21000, 
-            gasLimit:  4000000,
+            nonce: 50,
+            gasPrice: 2000000000, 
+            gasLimit:  210000,
             to: '0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c', 
             value: '0x00', 
             data: addPuppy,
@@ -118,14 +120,7 @@ app.post('/dog', (req, res) => {
 });
 
 app.get('/dogs', (req, res) => {
-    //const eth = new Eth(new Eth.HttpProvider('https://rinkeby.infura.io')); //192.168.1.130
-    const eth = new Eth(new Eth.HttpProvider('http://192.168.1.130:8545'));
-
-    //new Eth(new Eth.p)
-    //res.send([{name: 'puppy'}]);
-    // eth.getBlockByNumber(45300, true, (err, block) => {
-    //     res.send(block);
-    // });
+    const eth = new Eth(new Eth.HttpProvider(node));
 
     console.log(dog.contractName);
 
@@ -134,6 +129,18 @@ app.get('/dogs', (req, res) => {
     contract.name().then((data) => {
         res.send(data);
     });
+});
+
+app.get('/dognames', (req, res) => {
+    const eth = new Eth(new Eth.HttpProvider(node));
+    const contract = eth.contract(dog.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+
+    contract.name().then((data) => {
+        res.send(data);
+    });
+
+    var x = await contract.name();
+    console.log(x);
 });
 
 app.get('/count', (req, res) => {
