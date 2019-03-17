@@ -2,7 +2,7 @@ const settings = require('./settings.json');
 const express = require('express');
 const hbs = require('hbs');
 
-const dog = require('./build/contracts/DogERC721Metadata.json')
+const dogContract = require('./build/contracts/DogERC721Metadata.json')
 
 const Eth = require('ethjs');
 const Abi = require('ethjs-abi');
@@ -33,13 +33,18 @@ app.get('/', (req, res) => {
     res.render('index.hbs');
 });
 
-app.get('/dog', (req, res) => {
-    const eth = new Eth(new Eth.HttpProvider(node));
-    const contract = eth.contract(dog.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
-
-    contract.pack(req.query.id).then((data) => {
-        res.send(data);
+const dog = (id) => {
+    return new Promise((resolve, reject) => {
+        const eth = new Eth(new Eth.HttpProvider(node));
+        const contract = eth.contract(dogContract.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+ 
+        resolve(contract.pack(id));
     });
+}
+
+app.get('/dog', async (req, res) => {
+    const data = await dog(req.query.id);
+    res.send(data);
 });
 
 app.post('/dog', (req, res) => {
@@ -121,43 +126,37 @@ app.post('/dog', (req, res) => {
 app.get('/dogs', (req, res) => {
     const eth = new Eth(new Eth.HttpProvider(node));
 
-    console.log(dog.contractName);
+    console.log(dogContract.contractName);
 
-    const contract = eth.contract(dog.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+    const contract = eth.contract(dogContract.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
 
     contract.name().then((data) => {
         res.send(data);
     });
 });
 
-app.get('/dognames', (req, res) => {
-    const eth = new Eth(new Eth.HttpProvider(node));
-    const contract = eth.contract(dog.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+// app.get('/dognames', (req, res) => {
+//     const eth = new Eth(new Eth.HttpProvider(node));
+//     const contract = eth.contract(dogContract.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
 
-    contract.name().then((data) => {
-        res.send(data);
-    });
+//     contract.name().then((data) => {
+//         res.send(data);
+//     });
 
-    var x = await contract.name();
-    console.log(x);
-});
-
+//     var x = await contract.name();
+//     console.log(x);
+// });
 
 const count = () => {
     return new Promise((resolve, reject) => {
         const eth = new Eth(new Eth.HttpProvider(node));
-        const contract = eth.contract(dog.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+        const contract = eth.contract(dogContract.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
 
         contract.totalSupply().then((data) => {
             resolve(data);
         });
     });
 }
-
-app.get('/count', async (req, res) => {
-    const _count = await count();
-    res.send(_count);
-});
 
 app.get('/count', async (req, res) => {
     const _count = await count();
