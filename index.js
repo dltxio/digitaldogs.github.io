@@ -89,7 +89,7 @@ app.post('/dog', (req, res) => {
             };
 
         const name = req.body.name;
-        const dob = 2000;
+        const dob = req.baseUrl.dob;
         const microchip = req.body.microchip;
         const dam = 0;
         const sire = 0; 
@@ -127,13 +127,20 @@ app.get('/dogs', (req, res) => {
     });
 });
 
-app.get('/count', (req, res) => {
-    const eth = new Eth(new Eth.HttpProvider(node));
-    const contract = eth.contract(dog.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+const count = () => {
+    return new Promise((resolve, reject) => {
+        const eth = new Eth(new Eth.HttpProvider(node));
+        const contract = eth.contract(dog.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
 
-    contract.totalSupply().then((data) => {
-        res.send(data);
+        contract.totalSupply().then((data) => {
+            resolve(data);
+        });
     });
+}
+
+app.get('/count', async (req, res) => {
+    const _count = await count();
+    res.send(_count);
 });
 
 app.get('/key', (req, res) => {
