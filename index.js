@@ -149,7 +149,7 @@ const count = () => {
         const eth = new Eth(new Eth.HttpProvider(node));
         const contract = eth.contract(dogContract.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
 
-        reslove(contract.totalSupply());
+        resolve(contract.totalSupply());
     });
 }
 
