@@ -2,6 +2,8 @@ const settings = require('./settings.json');
 const express = require('express');
 const hbs = require('hbs');
 
+const dogContract = require('./build/contracts/DogERC721Metadata.json')
+
 const Eth = require('ethjs');
 const Abi = require('ethjs-abi');
 const Sign = require('ethjs-signer').sign;
@@ -18,7 +20,6 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/vendor'));
 
 const node = 'http://192.168.1.130:8545';
-const dog = require('./build/contracts/DogERC721Metadata.json');
 const contractAddress = '0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c';
 
 app.get('/home', (req, res) => {
@@ -32,13 +33,18 @@ app.get('/', (req, res) => {
     res.render('index.hbs');
 });
 
-app.get('/dog', (req, res) => {
-    const eth = new Eth(new Eth.HttpProvider(node));
-    const contract = eth.contract(dog.abi).at(contractAddress);
-
-    contract.pack(req.query.id).then((data) => {
-        res.send(data);
+const dog = (id) => {
+    return new Promise((resolve, reject) => {
+        const eth = new Eth(new Eth.HttpProvider(node));
+        const contract = eth.contract(dogContract.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+ 
+        resolve(contract.pack(id));
     });
+}
+
+app.get('/dog', async (req, res) => {
+    const data = await dog(req.query.id);
+    res.send(data);
 });
 
 app.post('/dog', (req, res) => {
@@ -47,6 +53,8 @@ app.post('/dog', (req, res) => {
     eth.getTransactionCount('0xbd9f7daee6d5fc5595567aed84f0f52d694f056c').then((nonce) => {
         console.log(Number(nonce));
     
+        console.log(req.body);
+
         const add_abi = 
             {
               "constant": false,
@@ -97,9 +105,9 @@ app.post('/dog', (req, res) => {
         const addPuppy = Abi.encodeMethod(add_abi, [name, dob, microchip, dam, sire, sex, owner]);
 
         const txParams = {
-            nonce: nonce,
-            gasPrice: 21000, 
-            gasLimit:  4000000,
+            nonce: 50,
+            gasPrice: 2000000000, 
+            gasLimit:  210000,
             to: '0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c', 
             value: '0x00', 
             data: addPuppy,
@@ -124,10 +132,22 @@ app.get('/dogs', (req, res) => {
     });
 });
 
+// app.get('/dognames', (req, res) => {
+//     const eth = new Eth(new Eth.HttpProvider(node));
+//     const contract = eth.contract(dogContract.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+
+//     contract.name().then((data) => {
+//         res.send(data);
+//     });
+
+//     var x = await contract.name();
+//     console.log(x);
+// });
+
 const count = () => {
     return new Promise((resolve, reject) => {
         const eth = new Eth(new Eth.HttpProvider(node));
-        const contract = eth.contract(dog.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+        const contract = eth.contract(dogContract.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
 
         reslove(contract.totalSupply());
     });
