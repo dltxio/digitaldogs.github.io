@@ -132,22 +132,23 @@ app.get('/dogs', (req, res) => {
     });
 });
 
-// app.get('/dognames', (req, res) => {
-//     const eth = new Eth(new Eth.HttpProvider(node));
-//     const contract = eth.contract(dogContract.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+app.get('/dognames', async (req, res) => {
+    const _count = await count();
+    const dogs = [];
 
-//     contract.name().then((data) => {
-//         res.send(data);
-//     });
+    for (i = 0; i < 2; i++) {
+        var _pup = await dog(i);
+        console.log(_pup.name);
+        dogs.push(_pup.name);
+    }
 
-//     var x = await contract.name();
-//     console.log(x);
-// });
+    res.send(dogs);
+});
 
 const count = () => {
     return new Promise((resolve, reject) => {
         const eth = new Eth(new Eth.HttpProvider(node));
-        const contract = eth.contract(dogContract.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+        const contract = eth.contract(dogContract.abi).at(contractAddress);
 
         resolve(contract.totalSupply());
     });
