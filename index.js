@@ -2,12 +2,9 @@ const settings = require('./settings.json');
 const express = require('express');
 const hbs = require('hbs');
 
-const dog = require('./build/contracts/DogERC721Metadata.json')
-
 const Eth = require('ethjs');
 const Abi = require('ethjs-abi');
 const Sign = require('ethjs-signer').sign;
-const EthereumTx = require('ethereumjs-tx');
 
 var app = express();
 app.use(express.json());
@@ -21,6 +18,8 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/vendor'));
 
 const node = 'http://192.168.1.130:8545';
+const dog = require('./build/contracts/DogERC721Metadata.json');
+const contractAddress = '0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c';
 
 app.get('/home', (req, res) => {
     res.send({
@@ -35,7 +34,7 @@ app.get('/', (req, res) => {
 
 app.get('/dog', (req, res) => {
     const eth = new Eth(new Eth.HttpProvider(node));
-    const contract = eth.contract(dog.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+    const contract = eth.contract(dog.abi).at(contractAddress);
 
     contract.pack(req.query.id).then((data) => {
         res.send(data);
@@ -117,10 +116,8 @@ app.post('/dog', (req, res) => {
 });
 
 app.get('/dogs', (req, res) => {
-    const eth = new Eth(new Eth.HttpProvider('http://192.168.1.130:8545'));
-    console.log(dog.contractName);
-
-    const contract = eth.contract(dog.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+    const eth = new Eth(new Eth.HttpProvider(node));
+    const contract = eth.contract(dog.abi).at(contractAddress);
 
     contract.name().then((data) => {
         res.send(data);
@@ -132,9 +129,7 @@ const count = () => {
         const eth = new Eth(new Eth.HttpProvider(node));
         const contract = eth.contract(dog.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
 
-        contract.totalSupply().then((data) => {
-            resolve(data);
-        });
+        reslove(contract.totalSupply());
     });
 }
 
