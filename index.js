@@ -91,13 +91,12 @@ app.post('/dog', (req, res) => {
             };
 
         const name = req.body.name;
-        const dob = 2000;
-        const microchip = '';
+        const dob = req.baseUrl.dob;
+        const microchip = req.body.microchip;
         const dam = 0;
         const sire = 0; 
         const sex = 0;
         const owner = '0x9e1525DA6AB3498dda99B97dc13E79f4c44b79d8';
-        //const privateKey = Buffer.from('cfdaa0e2b600272e752bd30d1bcbaf67bc1361942eb6f0236840a8903a65cd00', 'hex');
         const addPuppy = Abi.encodeMethod(add_abi, [name, dob, microchip, dam, sire, sex, owner]);
 
         const txParams = {
@@ -110,7 +109,7 @@ app.post('/dog', (req, res) => {
             chainId: 4
         }
         
-        var tx = Sign(txParams, '0xcfdaa0e2b600272e752bd30d1bcbaf67bc1361942eb6f0236840a8903a65cd00');
+        var tx = Sign(txParams, '0x60f54928d665c30e3055863a7254d0eb9dc5d4aa14ef2b1af230085c690adada');
         console.log(tx);
 
         eth.sendRawTransaction(tx).then((txHash) => {
@@ -143,13 +142,26 @@ app.get('/dognames', (req, res) => {
     console.log(x);
 });
 
-app.get('/count', (req, res) => {
-    const eth = new Eth(new Eth.HttpProvider(node));
-    const contract = eth.contract(dog.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
 
-    contract.totalSupply().then((data) => {
-        res.send(data);
+const count = () => {
+    return new Promise((resolve, reject) => {
+        const eth = new Eth(new Eth.HttpProvider(node));
+        const contract = eth.contract(dog.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+
+        contract.totalSupply().then((data) => {
+            resolve(data);
+        });
     });
+}
+
+app.get('/count', async (req, res) => {
+    const _count = await count();
+    res.send(_count);
+});
+
+app.get('/count', async (req, res) => {
+    const _count = await count();
+    res.send(_count);
 });
 
 app.get('/key', (req, res) => {
