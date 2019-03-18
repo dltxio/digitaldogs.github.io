@@ -22,41 +22,7 @@ app.use(express.static(__dirname + '/vendor'));
 const node = 'http://192.168.1.130:8545';
 const contractAddress = '0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c';
 
-app.get('/home', (req, res) => {
-    res.send({
-        plaintext: result,
-        timestamp: Date.now()
-    });
-});
-
-app.get('/', (req, res) => {
-    res.render('index.hbs');
-});
-
-const dog = (id) => {
-    return new Promise((resolve, reject) => {
-        const eth = new Eth(new Eth.HttpProvider(node));
-        const contract = eth.contract(dogContract.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
- 
-        resolve(contract.pack(id));
-    });
-}
-
-app.get('/dog', async (req, res) => {
-    const data = await dog(req.query.id);
-    res.send(data);
-});
-
-app.post('/dog', (req, res) => {
-    const eth = new Eth(new Eth.HttpProvider(node));
-
-    eth.getTransactionCount('0xbd9f7daee6d5fc5595567aed84f0f52d694f056c').then((nonce) => {
-        console.log(Number(nonce));
-    
-        console.log(req.body);
-
-        const add_abi = 
-            {
+const add_abi = {
               "constant": false,
               "inputs": [
                 {
@@ -94,6 +60,65 @@ app.post('/dog', (req, res) => {
               "stateMutability": "payable",
               "type": "function"
             };
+
+const dog = (id) => {
+    return new Promise((resolve, reject) => {
+        const eth = new Eth(new Eth.HttpProvider(node));
+        const contract = eth.contract(dogContract.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+ 
+        resolve(contract.pack(id));
+    });
+}
+
+const count = () => {
+    return new Promise((resolve, reject) => {
+        const eth = new Eth(new Eth.HttpProvider(node));
+        const contract = eth.contract(dogContract.abi).at(contractAddress);
+
+        resolve(contract.totalSupply());
+    });
+}
+
+app.get('/home', (req, res) => {
+    res.send({
+        plaintext: result,
+        timestamp: Date.now()
+    });
+});
+
+app.get('/', (req, res) => {
+    res.render('index.hbs');
+});
+
+app.get('/dog', async (req, res) => {
+    const data = await dog(req.query.id);
+    res.send(data);
+});
+
+//For opensea ERC721
+app.get('/dogmeta', async (req, res) => {
+    const meta = {
+        token_id: "1",
+        image_url: "http://digitaldogs.io/img/",
+        image_preview_url: "http://digitaldogs.io/img/",
+        image_thumbnail_url: "http://digitaldogs.io/img/",
+        image_original_url: "http://digitaldogs.io/img/",
+        animation_url: "http://digitaldogs.io/img/",
+        name: "Beagle",
+        description: "A Beagle",
+        external_link: "http://digitaldogs.io/"
+    };
+
+    const data = await dog(req.query.id);
+    res.send(data);
+});
+
+app.post('/dog', (req, res) => {
+    const eth = new Eth(new Eth.HttpProvider(node));
+
+    eth.getTransactionCount('0xbd9f7daee6d5fc5595567aed84f0f52d694f056c').then((nonce) => {
+        console.log(Number(nonce));
+        console.log(req.body);
 
         const name = req.body.name;
         const dob = req.baseUrl.dob;
@@ -144,15 +169,6 @@ app.get('/dognames', async (req, res) => {
 
     res.send(dogs);
 });
-
-const count = () => {
-    return new Promise((resolve, reject) => {
-        const eth = new Eth(new Eth.HttpProvider(node));
-        const contract = eth.contract(dogContract.abi).at(contractAddress);
-
-        resolve(contract.totalSupply());
-    });
-}
 
 app.get('/count', async (req, res) => {
     const _count = await count();
