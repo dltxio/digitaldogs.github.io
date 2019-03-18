@@ -19,8 +19,8 @@ app.use(express.static(__dirname + '/js'));
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/vendor'));
 
-//const node = 'http://192.168.1.130:8545';
-const node = 'https://rinkeby.infura.io';
+const node = 'http://192.168.1.130:8545';
+//const node = 'https://rinkeby.infura.io';
 const contractAddress = '0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c';
 
 const add_abi = {
@@ -65,7 +65,7 @@ const add_abi = {
 const dog = (id) => {
     return new Promise((resolve, reject) => {
         const eth = new Eth(new Eth.HttpProvider(node));
-        const contract = eth.contract(dogContract.abi).at('0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c');
+        const contract = eth.contract(dogContract.abi).at(contractAddress);
  
         resolve(contract.pack(id));
     });
@@ -168,13 +168,20 @@ app.get('/dogname', async (req, res) => {
 
 app.get('/dognames', async (req, res) => {
     const _count = await count();
+    console.log(_count);
+
     const dogs = [];
+    //var puppies = [];
 
     for (i = 0; i < 2; i++) {
         var _pup = await dog(i);
         console.log(_pup.name);
         dogs.push(_pup.name);
+        
+        //puppies.push(_pup);
     }
+
+    //var result = await Promise.all(puppies);
 
     res.send(dogs);
 });
