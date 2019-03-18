@@ -19,7 +19,8 @@ app.use(express.static(__dirname + '/js'));
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/vendor'));
 
-const node = 'http://192.168.1.130:8545';
+//const node = 'http://192.168.1.130:8545';
+const node = 'https://rinkeby.infura.io';
 const contractAddress = '0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c';
 
 const add_abi = {
@@ -95,24 +96,6 @@ app.get('/dog', async (req, res) => {
     res.send(data);
 });
 
-//For opensea ERC721
-app.get('/dogmeta', async (req, res) => {
-    const meta = {
-        token_id: "1",
-        image_url: "http://digitaldogs.io/img/",
-        image_preview_url: "http://digitaldogs.io/img/",
-        image_thumbnail_url: "http://digitaldogs.io/img/",
-        image_original_url: "http://digitaldogs.io/img/",
-        animation_url: "http://digitaldogs.io/img/",
-        name: "Beagle",
-        description: "A Beagle",
-        external_link: "http://digitaldogs.io/"
-    };
-
-    const data = await dog(req.query.id);
-    res.send(data);
-});
-
 app.post('/dog', (req, res) => {
     const eth = new Eth(new Eth.HttpProvider(node));
 
@@ -155,6 +138,32 @@ app.get('/dogs', (req, res) => {
     contract.name().then((data) => {
         res.send(data);
     });
+});
+
+//For opensea ERC721
+app.get('/dogmeta', async (req, res) => {
+
+    const _dog = await dog(req.query.id);
+
+    const meta = {
+        token_id: req.query.id,
+        image_url: "http://digitaldogs.io/img/",
+        image_preview_url: "http://digitaldogs.io/img/",
+        image_thumbnail_url: "http://digitaldogs.io/img/",
+        image_original_url: "http://digitaldogs.io/img/",
+        animation_url: "http://digitaldogs.io/img/",
+        name: _dog.name,
+        description: "A Beagle",
+        external_link: "http://digitaldogs.io/"
+    };
+
+    res.send(meta);
+});
+
+//Get single dog name based on index
+app.get('/dogname', async (req, res) => {
+    var _pup = await dog(req.query.id);
+    res.send({ name: _pup.name });
 });
 
 app.get('/dognames', async (req, res) => {
