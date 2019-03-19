@@ -7,6 +7,7 @@ const dogContract = require('./build/contracts/DogERC721Metadata.json')
 const Eth = require('ethjs');
 const Abi = require('ethjs-abi');
 const Sign = require('ethjs-signer').sign;
+const HdKey = require('hdkey');
 
 var app = express();
 app.use(express.json());
@@ -19,9 +20,8 @@ app.use(express.static(__dirname + '/js'));
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/vendor'));
 
-const node = 'http://192.168.1.130:8545';
-//const node = 'https://rinkeby.infura.io';
-const contractAddress = '0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c';
+const node = settings.Ethereum.Node;
+const contractAddress = setttings.Ethereum.ContractAddress;
 
 const add_abi = {
               "constant": false,
@@ -192,7 +192,11 @@ app.get('/count', async (req, res) => {
 });
 
 app.get('/key', (req, res) => {
-    res.send('0x00');
+    const index = request.query.index;
+    
+    const walletPub = HdKey.fromExtendedKey(settings.Ethereum.xPubKey);
+    const address = walletPub.deriveChild(index).getWallet().getAddressString();
+    return address;
 });
 
 app.listen(3000);

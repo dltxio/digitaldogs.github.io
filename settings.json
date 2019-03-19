@@ -1,7 +1,7 @@
 {
     "Ethereum": {
-        "ContractAddress": "0x00",
-        "Node": "https://rinkeby.infura.io",
+        "ContractAddress": "0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c",
+        "Node": "http://192.168.1.130:8545",
         "GasPrice": "0x1406F40",
         "GasLimit": "0x3D0900",
         "ChainId": 4
