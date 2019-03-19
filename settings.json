@@ -4,6 +4,7 @@
         "Node": "http://192.168.1.130:8545",
         "GasPrice": "0x1406F40",
         "GasLimit": "0x3D0900",
-        "ChainId": 4
+        "ChainId": 4,
+        "xPubKey": "xpub661MyMwAqRbcEvPmRAmYndzERhyNux1GoHzHxgzVHMBFkCro3kbbCiDZZ5XabZDyXPj5mH3hktvkjhhUdCQxie5e1g4t2GuAWNbPmsSfDp2"
     }
 }

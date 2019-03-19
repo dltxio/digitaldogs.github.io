@@ -7,7 +7,7 @@ const dogContract = require('./build/contracts/DogERC721Metadata.json')
 const Eth = require('ethjs');
 const Abi = require('ethjs-abi');
 const Sign = require('ethjs-signer').sign;
-const HdKey = require('hdkey');
+const HdKey = require('ethereumjs-wallet/hdkey');
 
 var app = express();
 app.use(express.json());
@@ -21,7 +21,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/vendor'));
 
 const node = settings.Ethereum.Node;
-const contractAddress = setttings.Ethereum.ContractAddress;
+const contractAddress = settings.Ethereum.ContractAddress;
 
 const add_abi = {
               "constant": false,
@@ -192,11 +192,11 @@ app.get('/count', async (req, res) => {
 });
 
 app.get('/key', (req, res) => {
-    const index = request.query.index;
-    
+    const index = req.query.index;
+
     const walletPub = HdKey.fromExtendedKey(settings.Ethereum.xPubKey);
     const address = walletPub.deriveChild(index).getWallet().getAddressString();
-    return address;
+    res.send(address);
 });
 
 app.listen(3000);
