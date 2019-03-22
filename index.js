@@ -88,7 +88,7 @@ app.get('/home', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.render('index.hbs');
+    res.render('index.hbs', { title: 'Digtal Dogs Australia '} );
 });
 
 app.get('/dog', async (req, res) => {
