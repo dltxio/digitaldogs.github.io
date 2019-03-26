@@ -2,7 +2,7 @@ const settings = require('./settings.json');
 const express = require('express');
 const hbs = require('hbs');
 
-const dogContract = require('./build/contracts/DogERC721Metadata.json')
+const dogContract = require('./build/contracts/DogERC721Metadata.json');
 
 const Eth = require('ethjs');
 const Abi = require('ethjs-abi');
