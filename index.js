@@ -64,8 +64,10 @@ const add_abi = {
 
 const dog = (id) => {
     return new Promise((resolve, reject) => {
-        const eth = new Eth(new Eth.HttpProvider(node));
-        const contract = eth.contract(dogContract.abi).at(contractAddress);
+        //https://mainnet.infura.io/v3/eaf5e0b4a01042a48211762c8d4eec44/'
+        //const eth = new Eth(new Eth.HttpProvider(node));
+        const eth = new Eth(new Eth.HttpProvider('https://mainnet.infura.io/v3/eaf5e0b4a01042a48211762c8d4eec44'));
+        const contract = eth.contract(dogContract.abi).at('0x4390282c7d623edee9aacb971303077aba2d5e14');
  
         resolve(contract.pack(id));
     });

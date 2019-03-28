@@ -2,7 +2,7 @@ pragma solidity ^0.5.0;
 
 import "./Ownable.sol";
 
-contract Breaders is Ownable {
+contract Breeders is Ownable {
 
     mapping(bytes32 => address) _prefix;
 
