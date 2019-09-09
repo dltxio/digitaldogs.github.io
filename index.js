@@ -116,7 +116,7 @@ app.post('/dog', (req, res) => {
 
         const txParams = {
             nonce: nonce,
-            gasPrice: '8000000000', 
+            gasPrice: '4000000000', 
             gasLimit: '200000',
             to: settings.Ethereum.ContractAddress, 
             value: '0x00', 
