@@ -1,7 +1,6 @@
 const settings = require('./settings.json');
 const express = require('express');
 const hbs = require('hbs');
-const path = require('path');
 
 const dogContract = require('./build/contracts/DogERC721Metadata.json');
 
@@ -19,7 +18,7 @@ app.use('/css', express.static(__dirname + '/css'));
 app.use('/img',express.static(__dirname + '/img'));
 app.use('/js', express.static(__dirname + '/js'));
 app.use(express.static(__dirname + '/public'));
-app.use('/vendor', express.static(path.join(__dirname, 'vendor')));
+app.use('/vendor', express.static(__dirname + 'vendor'));
 
 const node = settings.Ethereum.Node;
 const contractAddress = settings.Ethereum.ContractAddress;
