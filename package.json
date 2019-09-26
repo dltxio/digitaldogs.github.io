@@ -44,15 +44,5 @@
         "simple-line-icons": "^2.4.1",
         "truffle": "^5.0.2",
         "truffle-privatekey-provider": "^1.0.0"
-    },
-    "devDependencies": {
-        "browser-sync": "^2.26.3",
-        "gulp": "^3.9.1",
-        "gulp-autoprefixer": "6.0.0",
-        "gulp-clean-css": "3.10.0",
-        "gulp-header": "2.0.5",
-        "gulp-rename": "1.4.0",
-        "gulp-sass": "4.0.1",
-        "gulp-uglify": "3.0.1"
     }
 }
