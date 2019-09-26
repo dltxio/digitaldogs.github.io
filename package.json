@@ -11,6 +11,9 @@
         "theme",
         "template"
     ],
+    "scripts": {
+        "start": "nodemon index.js"
+    },
     "homepage": "https://startbootstrap.com/template-overviews/stylish-portfolio",
     "bugs": {
         "url": "https://github.com/BlackrockDigital/startbootstrap-stylish-portfolio/issues",
@@ -37,6 +40,7 @@
         "hdkey": "^1.1.1",
         "jquery": "3.3.1",
         "jquery.easing": "^1.4.1",
+        "nodemon": "^1.19.2",
         "simple-line-icons": "^2.4.1",
         "truffle": "^5.0.2",
         "truffle-privatekey-provider": "^1.0.0"

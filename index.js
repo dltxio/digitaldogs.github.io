@@ -1,6 +1,7 @@
 const settings = require('./settings.json');
 const express = require('express');
 const hbs = require('hbs');
+const path = require('path');
 
 const dogContract = require('./build/contracts/DogERC721Metadata.json');
 
@@ -14,11 +15,11 @@ app.use(express.json());
 
 app.set('view engine', 'hbs');
 
-app.use(express.static(__dirname + '/css'));
-app.use(express.static(__dirname + '/img'));
-app.use(express.static(__dirname + '/js'));
+app.use('/css', express.static(__dirname + '/css'));
+app.use('/img',express.static(__dirname + '/img'));
+app.use('/js', express.static(__dirname + '/js'));
 app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/vendor'));
+app.use('/vendor', express.static(path.join(__dirname, 'vendor')));
 
 const node = settings.Ethereum.Node;
 const contractAddress = settings.Ethereum.ContractAddress;
@@ -68,7 +69,7 @@ const dog = (id) => {
         //const eth = new Eth(new Eth.HttpProvider(node));
         const eth = new Eth(new Eth.HttpProvider('https://mainnet.infura.io/v3/eaf5e0b4a01042a48211762c8d4eec44'));
         const contract = eth.contract(dogContract.abi).at('0x4390282c7d623edee9aacb971303077aba2d5e14');
- 
+
         resolve(contract.pack(id));
     });
 }
@@ -90,7 +91,7 @@ app.get('/home', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.render('index.hbs', { title: 'Digtal Dogs Australia '} );
+    res.render('index.hbs', { title: 'Digital Dogs Australia '} );
 });
 
 app.get('/dog', async (req, res) => {
@@ -109,21 +110,21 @@ app.post('/dog', (req, res) => {
         const dob = req.baseUrl.dob;
         const microchip = req.body.microchip;
         const dam = req.body.dam;
-        const sire = req.body.sire; 
+        const sire = req.body.sire;
         const sex = req.body.sex;
         const owner = req.body.owner;
         const addPuppy = Abi.encodeMethod(add_abi, [name, dob, microchip, dam, sire, sex, owner]);
 
         const txParams = {
             nonce: nonce,
-            gasPrice: '4000000000', 
+            gasPrice: '4000000000',
             gasLimit: '200000',
-            to: settings.Ethereum.ContractAddress, 
-            value: '0x00', 
+            to: settings.Ethereum.ContractAddress,
+            value: '0x00',
             data: addPuppy,
             chainId: 4
         }
-        
+
         var tx = Sign(txParams, settings.Ethereum.PrivateKey);
         console.log(tx);
 
@@ -179,7 +180,7 @@ app.get('/dognames', async (req, res) => {
         var _pup = await dog(i);
         console.log(_pup.name);
         dogs.push(_pup.name);
-        
+
         //puppies.push(_pup);
     }
 
