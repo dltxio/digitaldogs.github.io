@@ -1,6 +1,7 @@
 const settings = require('./settings.json');
 const express = require('express');
 const hbs = require('hbs');
+const PORT = process.env.PORT || 3000;
 
 const dogContract = require('./build/contracts/DogERC721Metadata.json');
 
@@ -201,4 +202,4 @@ app.get('/key', (req, res) => {
     res.send(address);
 });
 
-app.listen(3000);
+app.listen(PORT);
