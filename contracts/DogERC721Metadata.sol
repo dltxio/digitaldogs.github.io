@@ -5,8 +5,9 @@ import "./IERC721Metadata.sol";
 import "./ERC165.sol";
 import "./Ownable.sol";
 import "./SafeMath.sol";
+import "./Fee.sol";
 
-contract DogERC721Metadata is ERC165, ERC721, IERC721Metadata, Ownable {
+contract DogERC721Metadata is Fee, ERC165, ERC721, IERC721Metadata, Ownable {
     using SafeMath for uint256;
 
     enum Sex {
@@ -25,9 +26,9 @@ contract DogERC721Metadata is ERC165, ERC721, IERC721Metadata, Ownable {
     }
 
     mapping(address => bool) private _writers;
-
+    mapping(bytes32 => Dog) private _dogs;
+    
     Dog[] public pack;
-    uint256 public fee;
 
     string private _name;
     string private _symbol;
@@ -118,10 +119,6 @@ contract DogERC721Metadata is ERC165, ERC721, IERC721Metadata, Ownable {
 
     function updateMicrochip(uint256 _tokenId, string calldata _microchip) external onlyOwner() {
         pack[_tokenId].microchip = _microchip;
-    }
-
-    function setFee(uint256 _fee) public onlyOwner() {
-        fee = _fee;
     }
 
     function _setTokenURI(uint256 tokenId, string memory uri) internal {

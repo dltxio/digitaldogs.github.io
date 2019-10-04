@@ -8,18 +8,18 @@
     <meta name="description" content="Digital Dogs Australia">
     <meta name="author" content="Lucas Cullen">
 
-    <title>Digital Dogs Australia</title>
+    <title>{{ title }} </title>
 
     <!-- Bootstrap Core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="./vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link href="./vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/stylish-portfolio.min.css" rel="stylesheet">
+    <link href="./css/stylish-portfolio.min.css" rel="stylesheet">
 
   </head>
 
@@ -55,7 +55,7 @@
     <!-- Header -->
     <header class="masthead d-flex">
       <div class="container text-center my-auto">
-        <h1 class="mb-1">Digital Dogs Australia &#x1F43A</h1>
+        <h1 class="mb-1">{{ title }} &#x1F43A</h1>
         <h3 class="mb-5">
           <em>Provable lineage on the ethereum blockchain <i class="fab fa-ethereum"></i></em>
         </h3>
@@ -69,12 +69,13 @@
       <div class="container text-center">
         <div class="row">
           <div class="col-lg-10 mx-auto">
-            <h2 id="totalSupply"></h2>
-            <p class="lead mb-5">Lorem ipsum dolor sit amet, aliquam appareat id est, quodsi senserit disputationi vel ea. Has ei dicat vivendum, oblique equidem in eum, pri prima decore accommodare id. Ex sea vero habeo, an vim ignota ponderum, ancillae pericula per ne. Pri in impedit fuisset. Debitis feugait persecuti pri et, unum possim instructior pri ex, suas prima perfecto vix cu.</p>
+            <h2>What we do <i class="fa fa-paw"></i></h2>
+            <p class="lead mb-5">Here at Digital Dogs Australia, we provide a harmonised digital registry of pedigree dogs to breeders, dog associations, microchip registries and government bodies.
+              Blockchains are an emergent technology that has broad applications.  Digital Dogs Australia harness that technology to make dog registrations more secure, transparent and affordable!</p>
 
-            <p>Recently added:  </p>
+            <p class="lead mb-5" id="totalSupply"></p>
 
-            <a class="btn btn-dark btn-xl js-scroll-trigger" href="#services">What We Do</a>
+            <a class="btn btn-dark btn-xl js-scroll-trigger" href="#services">Demo</a>
           </div>
         </div>
       </div>
@@ -95,53 +96,61 @@
             <h4>
               <strong>Register</strong>
             </h4>
-            <p class="text-faded mb-0">Add your dog to the ethereum blockchain</p>
+            <p class="text-faded mb-0">Add your dog to the ethereum blockchain!</p>
           </div>
+
           <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
             <span class="service-icon rounded-circle mx-auto mb-3">
-              <i class="icon-pencil"></i>
+              <i class="icon-magnifier"></i>
             </span>
             <h4>
-              <strong>Track</strong>
+              <strong>Search</strong>
             </h4>
-            <p class="text-faded mb-0">Trace an animals lineage</p>
+            <p class="text-faded mb-0">Trace an animals pedigree</p>
           </div>
+
           <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+            <span class="service-icon rounded-circle mx-auto mb-3">
+              <i class="icon-people"></i>
+            </span>
+            <h4>
+              <strong>Transfer</strong>
+            </h4>
+            <p class="text-faded mb-0">Securley transfer ownership</p>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
             <span class="service-icon rounded-circle mx-auto mb-3">
               <i class="icon-like"></i>
             </span>
             <h4>
-              <strong>Trade</strong>
-            </h4>
-            <p class="text-faded mb-0">Trade your dog securely</p>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <span class="service-icon rounded-circle mx-auto mb-3">
-              <i class="icon-mustache"></i>
-            </span>
-            <h4>
               <strong>Attest</strong>
             </h4>
-            <p class="text-faded mb-0">I mustache you a question...</p>
+            <p class="text-faded mb-0">Verify the ownership of your animal via our smart contracts</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Callout -->
-    <section class="callout">
+    <section class="callout" id="register">
       <div class="container text-center">
         <h2 class="mx-auto mb-5">Register <em>your</em> dog on the blockchain!</h2>
             <div class="container-fluid">
-              <form>
+              <form action="/dog" method="POST">
+                  <div class="form-group">
+                    <label for="name">Private Key</label>
+                    <input type="text" class="form-control" id="privateKey" value=""/>
+                  </div>
+
                   <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter name">
+                    <input type="text" class="form-control" id="name" placeholder="Enter name"/>
                   </div>
 
                   <div class="form-group">
                     <label for="name">Dob</label>
-                    <input type="number" class="form-control" id="dob">
+                    <input type="text" class="form-control" id="dob" placeholder="yyyyMMdd"/>
                   </div>
 
                   <div class="form-group">
@@ -151,22 +160,22 @@
 
                   <div class="form-group">
                     <label for="name">Microchip</label>
-                    <input type="text" class="form-control" id="microchip">
+                    <input type="text" class="form-control" id="microchip"/>
                   </div>
 
                   <div class="form-group">
                     <label for="name">Dam ID</label>
-                    <input type="number" class="form-control" id="dam" placeholder="0">
+                    <input type="number" class="form-control" id="dam" placeholder="0"/>
                   </div>
 
                   <div class="form-group">
                     <label for="name">Sire ID</label>
-                    <input type="number" class="form-control" id="sire" placeholder="0">
+                    <input type="number" class="form-control" id="sire" placeholder="0"/>
                   </div>
 
                   <div class="form-group">
                     <label for="name">Owner Public Key</label>
-                    <input type="text" class="form-control" id="owner" value="0x9e1525DA6AB3498dda99B97dc13E79f4c44b79d8">
+                    <input type="text" class="form-control" id="owner" value="0xD009F888F95EFDe95199BaD766EFab74015b9239"/>
                   </div>
 
                   <a class="btn btn-primary btn-xl" id="register">Register</a>
@@ -179,7 +188,7 @@
     <section class="content-section bg-primary text-white">
       <div class="container text-center">
         <h2 class="mb-4">Get in touch</h2>
-        <p>Lorem ipsum dolor sit amet, aliquam appareat id est, quodsi senserit disputationi vel ea. Has ei dicat vivendum, oblique equidem in eum, pri prima decore accommodare id. Ex sea vero habeo, an vim ignota ponderum, ancillae pericula per ne. Pri in impedit fuisset. Debitis feugait persecuti pri et, unum possim instructior pri ex, suas prima perfecto vix cu.</p>
+        <p>We understand this technology is new and confusing.  Please email woof @ digitaldogs.io to have a chat.</p>
       </div>
     </section>
 
@@ -203,7 +212,7 @@
             </a>
           </li>
         </ul>
-        <p class="text-muted small mb-0">Copyright &copy; Digital Dogs Australia 2019 0xA0bcF49B1Be80CF2eEE60A7BddFbA60fC8A53693</p>
+        <p class="text-muted small mb-0">Copyright &copy; Digital Dogs Australia 2019 Rinkeby: 0x08dd1ea8ca7c5f4264b9eb9272f506f07f94025c Mainnet: 0x4390282c7d623edee9aacb971303077aba2d5e14</p>
       </div>
     </footer>
 
@@ -214,18 +223,12 @@
 
     <!-- Bootstrap core JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Plugin JavaScript -->
-    <script src="/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for this template -->
-    <script src="/stylish-portfolio.min.js"></script>
-
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ethjs@0.3.4/dist/ethjs.min.js"></script>
-    {{!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ethjs-abi@0.2.1/lib/index.min.js"></script> --}}
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/combine/npm/ethjs-abi@0.2.1,npm/ethjs-signer@0.1.1"></script>
-
-    
+    <script src="js/stylish-portfolio.min.js"></script>
   </body>
 </html>
