@@ -18,3 +18,19 @@ Mainnet owner MEW Connect`0x5695d8049763b985B310F9047A0bD5376580B56C`
 `https://opensea.io/assets/0x8f41dbc402d8f110f4ab8d551f41b821cbff0376/0` (Working in trust v2)
 
 `https://opensea.io/assets/0x4390282c7d623edee9aacb971303077aba2d5e14/0`
+
+## Address verification
+
+```
+Digital Dogs Australia (DigitalDogs.io) own the address 0xa6f0525721fB73d7009165a298f106f2C8a5b90a 
+```
+
+```
+{
+  "address": "0xa6f0525721fb73d7009165a298f106f2c8a5b90a",
+  "msg": "Digital Dogs Australia (DigitalDogs.io) own the address 0xa6f0525721fB73d7009165a298f106f2C8a5b90a",
+  "sig": "0x51a3477b2b9cededeb1dbb08ab54849a1c81f73eac06530cc333fe4fbb72e9056f84aae9c04956e79aa99ec569e142e37e6158acf44b0a0b54d27ac3ac5149b41c",
+  "version": "3",
+  "signer": "ledger"
+}
+```
