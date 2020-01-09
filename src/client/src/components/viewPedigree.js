@@ -3,28 +3,29 @@ import ResultItem from "./searchResult";
 
 export default function SearchDogs() {
   const [search, setSearch] = useState("");
-  const [results, setResults] = useState([
-    {
-      owner: 123,
-      name: "fido",
-      sex: "male",
-      microchip: "abcde123",
-      dob: "2018-01-01",
-      sire: "557678",
-      dam: "45023"
-    },
-    {
-      owner: 456,
-      name: "Ralph",
-      sex: "female",
-      microchip: "asdkjlkln2",
-      dob: "2017-01-01",
-      sire: "8815465",
-      dam: "328668"
-    }
-  ]);
+  const [results, setResults] = useState([]);
   const submitSearch = event => {
-    alert("You searched for " + search);
+    // call api with value in search and setResults(returned data)
+    setResults([
+      {
+        owner: 123,
+        name: "fido",
+        sex: "male",
+        microchip: "abcde123",
+        dob: "2018-01-01",
+        sire: "557678",
+        dam: "45023"
+      },
+      {
+        owner: 456,
+        name: "Ralph",
+        sex: "female",
+        microchip: "asdkjlkln2",
+        dob: "2017-01-01",
+        sire: "8815465",
+        dam: "328668"
+      }
+    ]);
     event.preventDefault();
   };
   return (

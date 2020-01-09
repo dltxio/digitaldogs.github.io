@@ -1,36 +1,41 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import RegisterDog from "./components/registerDog";
-import SearchDogs from "./components/searchDogs";
+import ViewPedigree from "./components/viewPedigree";
 import ViewDog from "./components/viewDog";
 
 function App() {
   return (
     <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="register">Register your dog</Link>
+      <div className="App mx-auto shadow rounded mt-3 pt-3">
+        <Switch>
+          <Route path="/register">
+            <RegisterDog />
+          </Route>
+          <Route path="/pedigree">
+            <ViewPedigree />
+          </Route>
+          <Route path="/record" component={ViewDog} />
+        </Switch>
+
+        <nav className="bottom-nav mt-3 rounded-bottom">
+          {/* Style to look like a bottom tab nav bar */}
+          <ul className="nav nav-tabs justify-content-center">
+            <li className="nav-item">
+              <Link to="/register" className="nav-link">
+                Register your dog
+              </Link>
             </li>
-            <li>
-              <Link to="search">Search Registrations</Link>
+            <li className="nav-item">
+              <Link to="/pedigree" className="nav-link">
+                Search Registrations
+              </Link>
             </li>
           </ul>
         </nav>
-
-        <Switch>
-          <Route path="register">
-            <RegisterDog />
-          </Route>
-          <Route path="search">
-            <SearchDogs />
-          </Route>
-          <Route path="record" component={ViewDog} />
-        </Switch>
       </div>
     </Router>
   );

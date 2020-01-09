@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  max-width: 45rem;
+  background-color: #fff;
 }
 
 .App-logo {
@@ -35,4 +37,12 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.bottom-nav {
+  position: sticky;
+  bottom: 0;
+  max-width: 45rem;
+  background-color: white;
+  border-top: 1px solid;
 }

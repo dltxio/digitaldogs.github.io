@@ -9,7 +9,7 @@ router.get("/:id/pedigree", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  res.send("Register new dog");
+  res.status(200).send(JSON.stringify({ tokenID: "abcd1234" }));
 });
 router.put("/:id", (req, res) => {
   res.send("Transfer dog");

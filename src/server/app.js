@@ -3,11 +3,13 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const buildPath = path.join(__dirname, "../client/build");
+const cors = require("cors");
 
 const indexRouter = require("./routes/index");
 const apiRouter = require("./routes/api");
-
+require("dotenv").config();
 const app = express();
+app.use(cors({ origin: "*" }));
 
 app.use(logger("dev"));
 app.use(express.json());
