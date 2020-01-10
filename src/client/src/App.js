@@ -12,6 +12,14 @@ function App() {
     <Router>
       <div className="App mx-auto shadow rounded mt-3 pt-3">
         <Switch>
+          <Route exact path="/">
+            <div style={{ minHeight: 70 + "vh" }}>
+              <h1>Home Page</h1>
+            </div>
+          </Route>
+          <Route path="/demo">
+            <RegisterDog />
+          </Route>
           <Route path="/register">
             <RegisterDog />
           </Route>

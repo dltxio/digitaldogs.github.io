@@ -1,36 +1,19 @@
 import React, { useState } from "react";
 import ResultItem from "./searchResult";
+import serverApi from "../api";
 
 export default function SearchDogs() {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
-  const submitSearch = event => {
-    // call api with value in search and setResults(returned data)
-    setResults([
-      {
-        owner: 123,
-        name: "fido",
-        sex: "male",
-        microchip: "abcde123",
-        dob: "2018-01-01",
-        sire: "557678",
-        dam: "45023"
-      },
-      {
-        owner: 456,
-        name: "Ralph",
-        sex: "female",
-        microchip: "asdkjlkln2",
-        dob: "2017-01-01",
-        sire: "8815465",
-        dam: "328668"
-      }
-    ]);
+  const submitSearch = async event => {
     event.preventDefault();
+    // call api with value in search and setResults(returned data)
+    const pedigree = await serverApi.get("/dogs/1/pedigree");
+    setResults(pedigree.data);
   };
   return (
     <div className="container ">
-      <h2 className="mx-auto mb-5">Search for dog registrations</h2>
+      <h2 className="mx-auto mb-5">Search for dog pedigree</h2>
       <div className="container-fluid text-center">
         <form onSubmit={submitSearch}>
           <div className="form-group">
