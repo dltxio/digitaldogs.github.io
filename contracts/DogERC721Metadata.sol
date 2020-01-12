@@ -5,9 +5,8 @@ import "./IERC721Metadata.sol";
 import "./ERC165.sol";
 import "./Ownable.sol";
 import "./SafeMath.sol";
-import "./Fee.sol";
 
-contract DogERC721Metadata is Fee, ERC165, ERC721, IERC721Metadata, Ownable {
+contract DogERC721Metadata is ERC165, ERC721, IERC721Metadata, Ownable {
     using SafeMath for uint256;
 
     enum Sex {
@@ -25,10 +24,11 @@ contract DogERC721Metadata is Fee, ERC165, ERC721, IERC721Metadata, Ownable {
         uint256 timestamp;
     }
 
+    Dog[] public pack;
+
+    uint256 private _fee;
     mapping(address => bool) private _writers;
     mapping(bytes32 => Dog) private _dogs;
-    
-    Dog[] public pack;
 
     string private _name;
     string private _symbol;
@@ -86,7 +86,7 @@ contract DogERC721Metadata is Fee, ERC165, ERC721, IERC721Metadata, Ownable {
     }
 
     function addPuppy(string calldata dogsName, uint256 dob, string calldata microchip, Sex sex, uint256 dam, uint256 sire, address owner) external payable onlyOwner() {
-        require(msg.value >= fee, "Fee too small");
+        require(msg.value >= _fee, "Fee too small");
 
         _addPuppy(dogsName, dob, microchip, sex, dam, sire, owner);
     }
@@ -124,6 +124,14 @@ contract DogERC721Metadata is Fee, ERC165, ERC721, IERC721Metadata, Ownable {
     function _setTokenURI(uint256 tokenId, string memory uri) internal {
         require(_exists(tokenId), "Token does not exist");
         _tokenURIs[tokenId] = uri;
+    }
+
+    function getFee() external view returns(uint256) {
+        return _fee;
+    }
+
+    function setFee(uint256 fee) external onlyOwner() {
+        _fee = fee;
     }
 
     event PuppyAdded(uint _tokenId);

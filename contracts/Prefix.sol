@@ -13,12 +13,12 @@ contract Prefix is Ownable, Roles {
     }
 
     function addMembersPrefix(bytes32 prefix, address owner) external onlyWriters() {
-        require(!_isPrefixRegistered(prefix));
+        require(!_isPrefixRegistered(prefix), "Prefix already registered");
         _prefixes[prefix] = owner;
     }
 
     function addPrefix(bytes32 prefix) external {
-        require(!_isPrefixRegistered(prefix));
+        require(!_isPrefixRegistered(prefix), "Prefix already registered");
         _prefixes[prefix] = msg.sender;
     }
 
@@ -33,8 +33,4 @@ contract Prefix is Ownable, Roles {
     function isMember(address owner) public view returns (bool) {
         return true;
     }
-
-    // modifier onlyMembers() {
-    //     _;
-    // }
 }
