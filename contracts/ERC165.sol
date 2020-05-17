@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.6.7;
 
 import "./IERC165.sol";
 
@@ -38,7 +38,7 @@ contract ERC165 is IERC165 {
      * @dev internal method for registering an interface
      */
     function _registerInterface(bytes4 interfaceId) internal {
-        require(interfaceId != 0xffffffff);
+        require(interfaceId != 0xffffffff, "Invalid");
         _supportedInterfaces[interfaceId] = true;
     }
 }

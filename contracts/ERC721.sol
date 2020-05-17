@@ -1,14 +1,10 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.6.7;
 
 import "./IERC721.sol";
 import "./IERC721Receiver.sol";
-import "./SafeMath.sol";
-import "./Address.sol";
 import "./ERC165.sol";
 
 contract ERC721 is ERC165, IERC721 {
-    using SafeMath for uint256;
-    using Address for address;
 
     bytes4 private constant _ERC721_RECEIVED = 0x150b7a02;
 
@@ -50,7 +46,7 @@ contract ERC721 is ERC165, IERC721 {
     function approve(address to, uint256 tokenId) public {
         address owner = ownerOf(tokenId);
         require(to != owner, "Cannot be owner");
-        require(msg.sender == owner || isApprovedForAll(owner, msg.sender));
+        require(msg.sender == owner || isApprovedForAll(owner, msg.sender), "Invalid");
 
         _tokenApprovals[tokenId] = to;
         emit Approval(owner, to, tokenId);

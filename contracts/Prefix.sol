@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.6.7;
 
 import "./Roles.sol";
 import "./Ownable.sol";
@@ -13,12 +13,12 @@ contract Prefix is Ownable, Roles {
     }
 
     function addMembersPrefix(bytes32 prefix, address owner) external onlyWriters() {
-        require(!_isPrefixRegistered(prefix));
+        require(!_isPrefixRegistered(prefix), "Already registered");
         _prefixes[prefix] = owner;
     }
 
     function addPrefix(bytes32 prefix) external {
-        require(!_isPrefixRegistered(prefix));
+        require(!_isPrefixRegistered(prefix), "Already registered");
         _prefixes[prefix] = msg.sender;
     }
 
@@ -29,12 +29,4 @@ contract Prefix is Ownable, Roles {
     function _isPrefixRegistered(bytes32 prefix) private view returns (bool) {
         return _prefixes[prefix] != address(0);
     }
-
-    function isMember(address owner) public view returns (bool) {
-        return true;
-    }
-
-    // modifier onlyMembers() {
-    //     _;
-    // }
 }

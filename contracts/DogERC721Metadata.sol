@@ -1,29 +1,28 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.6.7;
 
 import "./ERC721.sol";
 import "./IERC721Metadata.sol";
 import "./ERC165.sol";
 import "./Ownable.sol";
-import "./SafeMath.sol";
-import "./Fee.sol";
+import "./SafeMath.sol"
 
-contract DogERC721Metadata is Fee, ERC165, ERC721, IERC721Metadata, Ownable {
+enum Sex {
+    Male,
+    Female
+}
+
+struct Dog {
+    string name;
+    uint256 dob;
+    string microchip;
+    uint256 dam;
+    uint256 sire;
+    Sex sex;
+    uint256 timestamp;
+}
+
+contract DogERC721Metadata is ERC165, ERC721, IERC721Metadata, Ownable {
     using SafeMath for uint256;
-
-    enum Sex {
-        Male,
-        Female
-    }
-
-    struct Dog {
-        string name;
-        uint256 dob;
-        string microchip;
-        uint256 dam;
-        uint256 sire;
-        Sex sex;
-        uint256 timestamp;
-    }
 
     mapping(address => bool) private _writers;
     mapping(bytes32 => Dog) private _dogs;
@@ -33,6 +32,7 @@ contract DogERC721Metadata is Fee, ERC165, ERC721, IERC721Metadata, Ownable {
     string private _name;
     string private _symbol;
     mapping(uint256 => string) private _tokenURIs;
+    uint private _fee;
 
     bytes4 private constant _INTERFACE_ID_ERC721_METADATA = 0x5b5e139f;
     /*
@@ -56,6 +56,14 @@ contract DogERC721Metadata is Fee, ERC165, ERC721, IERC721Metadata, Ownable {
 
         // register the supported interfaces to conform to ERC721 via ERC165
         _registerInterface(_INTERFACE_ID_ERC721_METADATA);
+    }
+
+    function fee() external view returns (uint) {
+        return _fee;
+    }
+
+    function setFee(uint amount) onlyOwner() {
+        _fee = amount;
     }
 
     function name() external view returns (string memory) {
@@ -85,15 +93,38 @@ contract DogERC721Metadata is Fee, ERC165, ERC721, IERC721Metadata, Ownable {
         }
     }
 
-    function addPuppy(string calldata dogsName, uint256 dob, string calldata microchip, Sex sex, uint256 dam, uint256 sire, address owner) external payable onlyOwner() {
-        require(msg.value >= fee, "Fee too small");
+    function addPuppyClaim(string calldata name, uint256 dob, string calldata microchip, Sex sex, uint256 dam, uint256 sire) external payable() {
+        require(msg.value =< fee(), "Value too small");
 
-        _addPuppy(dogsName, dob, microchip, sex, dam, sire, owner);
+        if (dam > 0) {
+            require(pack[dam].sex == Female, "Parent dam must be female");
+        }
+
+        if (sire > 0) {
+            require(pack[sire].sex == Male, "Parent sire must be male");
+        }
+
+        _addPuppy(name, dob, microchip, sex, dam, sire, msg.sender);
     }
 
-    function _addPuppy(string memory dogsName, uint256 dob, string memory microchip, Sex sex, uint256 dam, uint256 sire, address owner) internal {
+    function verifyPuppyDam(uint256 index, uint256 dam) public {
+        require(pack[pack[index].dam].owner == msg.sender, "Can only verify own dog");
+        pack[index].dam = dam;
+    }
+
+    function verifyPuppySire(uint256 index, uint256 sire) public {
+        require(pack[pack[index].sire].owner == msg.sender, "Can only verify own dog");
+        pack[index].sire = sire;
+    }
+
+    function addPuppy(string calldata name, uint256 dob, string calldata microchip, Sex sex, uint256 dam, uint256 sire, address owner) external payable onlyOwner() {
+        require(msg.value =< fee(), "Tx value too small");
+        _addPuppy(name, dob, microchip, sex, dam, sire, owner);
+    }
+
+    function _addPuppy(string memory name, uint256 dob, string memory microchip, Sex sex, uint256 dam, uint256 sire, address owner) internal {
         uint id = pack.length;
-        pack.push(Dog(dogsName, dob, microchip, dam, sire, sex, now));
+        pack.push(Dog(name, dob, microchip, dam, sire, sex, now));
 
         _tokenOwner[id] = owner;
         _ownedTokensCount[owner] = _ownedTokensCount[owner].add(1);
@@ -102,23 +133,23 @@ contract DogERC721Metadata is Fee, ERC165, ERC721, IERC721Metadata, Ownable {
         emit PuppyAdded(id);
     }
 
-    function getPuppy(uint256 _tokenId) external view returns (string memory, uint256, Sex, uint256, uint256, address) {
-        address owner = ownerOf(_tokenId);
-        return (pack[_tokenId].name, pack[_tokenId].dob, pack[_tokenId].sex, pack[_tokenId].dam, pack[_tokenId].sire, owner);
+    function getPuppy(uint256 id) external view returns (string memory, uint256, Sex, uint256, uint256, address) {
+        address owner = ownerOf(id);
+        return (pack[id].name, pack[id].dob, pack[id].sex, pack[id].dam, pack[id].sire, owner);
     }
 
-    function removePuppy(uint256 _tokenId) external onlyOwner() {
-        delete pack[_tokenId];
+    function removePuppy(uint256 id) external onlyOwner() {
+        delete pack[id];
 
-        emit PuppyRemoved(_tokenId);
+        emit PuppyRemoved(id);
     }
 
-    function updateTitle(uint256 _tokenId, string calldata _newName) external onlyOwner() {
-        pack[_tokenId].name = _newName;
+    function updateTitle(uint256 id, string calldata _newName) external onlyOwner() {
+        pack[id].name = _newName;
     }
 
-    function updateMicrochip(uint256 _tokenId, string calldata _microchip) external onlyOwner() {
-        pack[_tokenId].microchip = _microchip;
+    function updateMicrochip(uint256 id, string calldata _microchip) external onlyOwner() {
+        pack[id].microchip = _microchip;
     }
 
     function _setTokenURI(uint256 tokenId, string memory uri) internal {
