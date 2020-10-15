@@ -1,7 +1,7 @@
 {
     "Ethereum": {
-        "ContractAddress": "0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c",
-        "Node": "wss://rinkeby.infura.io/ws/v3/eaf5e0b4a01042a48211762c8d4eec44",
+        "ContractAddress": "0x9bA44Fb5c22104df15eE07C622A6475126753b36",
+        "Node": "wss://localhost:8545",
         "GasPrice": "0x1406F40",
         "GasLimit": "0x3D0900",
         "ChainId": 4,

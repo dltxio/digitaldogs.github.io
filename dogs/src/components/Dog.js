@@ -2,36 +2,22 @@ import React, { useState } from "react";
 import { Formik, Field, Form } from "formik";
 import { Form as BForm, Button, Card } from "react-bootstrap";
 import Web3 from "web3";
-import dogContract from "../build/contracts/DogERC721Metadata.json";
+import dogsERC721 from "../build/contracts/DogERC721.json";
 import setting from "../setting.json";
 
 export default function Dog() {
   const [dog, setDog] = useState([]);
-  const node = setting.Ethereum.Node;
+  const [totalSupply, setTotalSupply] = useState([]);
   const onSubmit = async (value) => {
-    const web3 = new Web3(new Web3.providers.WebsocketProvider(node));
+    const web3 = new Web3(
+      new Web3.providers.WebsocketProvider(setting.Ethereum.Node)
+    );
     const contract = new web3.eth.Contract(
-      dogContract.abi,
+      dogsERC721.abi,
       setting.Ethereum.ContractAddress
     );
-    contract.methods
-      .totalSupply()
-      .call({ from: setting.Ethereum.ContractAddress }, function (
-        error,
-        result
-      ) {
-        //console.log(result);
-      });
-
-    contract.methods
-      .pack(value.index)
-      .call({ from: setting.Ethereum.ContractAddress }, function (
-        error,
-        result
-      ) {
-        console.log(result);
-        setDog(JSON.stringify(result));
-      });
+    const totalSupply = contract.methods.totalSupply();
+    console.log(totalSupply);
   };
   return (
     <div className="mt-5">
@@ -66,7 +52,8 @@ export default function Dog() {
           </Card.Body>
         </Card>
       </div>
-      {dog ? <div>{dog}</div> : <div>not found</div>}
+      {totalSupply ? <div>Total supply: {totalSupply}</div> : <div></div>}
+      {dog ? <div>Dogs:{dog}</div> : <div>not found</div>}
     </div>
   );
 }

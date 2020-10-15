@@ -2,50 +2,12 @@ import React, { useState } from "react";
 import { Formik, Field, Form } from "formik";
 import { Form as BForm, Button, Card, Alert } from "react-bootstrap";
 import setting from "../setting.json";
-
+import dogsERC721 from "../build/contracts/DogERC721.json";
 import Web3 from "web3";
 
 export default function Register() {
   const [error, setError] = useState();
   const [showError, setShowError] = useState(false);
-  const add_abi = {
-    constant: false,
-    inputs: [
-      {
-        name: "name",
-        type: "string",
-      },
-      {
-        name: "dob",
-        type: "uint256",
-      },
-      {
-        name: "microchip",
-        type: "string",
-      },
-      {
-        name: "sex",
-        type: "uint8",
-      },
-      {
-        name: "dam",
-        type: "uint256",
-      },
-      {
-        name: "sire",
-        type: "uint256",
-      },
-      {
-        name: "owner",
-        type: "address",
-      },
-    ],
-    name: "add",
-    outputs: [],
-    payable: true,
-    stateMutability: "payable",
-    type: "function",
-  };
 
   const onSubmit = async (value) => {
     const { ethereum } = window;
@@ -57,7 +19,7 @@ export default function Register() {
     }
 
     const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-    const account = accounts[0];
+    const account = accounts[2];
     if (account === "") {
       setError("MetaMask account not found!");
       setShowError(true);
@@ -67,22 +29,29 @@ export default function Register() {
       const web3 = new Web3(
         new Web3.providers.WebsocketProvider(setting.Ethereum.Node)
       );
-      const puppy = web3.eth.abi.encodeFunctionSignature(add_abi, [
-        value.name,
-        value.dob,
-        value.microchip,
-        value.damID,
-        value.sireID,
-        value.sex,
-        value.ownerPublicKey,
-      ]);
+      const contract = new web3.eth.Contract(
+        dogsERC721.abi,
+        setting.Ethereum.ContractAddress
+      );
+
+      const puppy = contract.methods
+        .addPuppy(
+          value.name,
+          value.dob,
+          value.microchip,
+          value.damID,
+          value.sireID,
+          value.sex,
+          value.ownerPublicKey
+        )
+        .encodeABI();
 
       console.log(puppy);
       const transactionParameters = {
         from: ethereum.selectedAddress, // must match user's active address.
         gasPrice: setting.Ethereum.GasPrice, // customizable by user during MetaMask confirmation.
         gas: setting.Ethereum.GasLimit, // customizable by user during MetaMask confirmation.
-        to: "0x145093FeEA37828789092970E11a4fBdf779cbac", // Required except during contract publications.
+        to: setting.Ethereum.ContractAddress, // Required except during contract publications.
         value: "0x00", // Only required to send ether to the recipient from the initiating external account.
         data: puppy, // Optional, but used for defining smart contract creation and interaction.
         chainId: 3, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
@@ -113,7 +82,6 @@ export default function Register() {
             </Alert>
             <Formik
               initialValues={{
-                privateKey: "",
                 name: "",
                 dob: "",
                 sex: "",
@@ -125,17 +93,6 @@ export default function Register() {
               onSubmit={onSubmit}
             >
               <Form className="mt-5">
-                <BForm.Group>
-                  <BForm.Label className="d-block my-3">
-                    Private Key
-                  </BForm.Label>
-                  <Field
-                    id="privateKey"
-                    name="privateKey"
-                    placeholder=""
-                    className="d-block my-3 w-100"
-                  />
-                </BForm.Group>
                 <BForm.Group>
                   <BForm.Label className="d-block my-3">Name</BForm.Label>
                   <Field
