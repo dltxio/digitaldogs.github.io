@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a460fea4ccbf8ea2fa5b7a0e0b985b95",
+    "revision": "949200c17fe08cc965d3546bd9f49b58",
     "url": "https://www.dltx.io/digitaldogs.github.io/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://www.dltx.io/digitaldogs.github.io/static/css/2.11829350.chunk.css"
   },
   {
-    "revision": "9b55efbd3c5ab14aa472",
+    "revision": "cbcf9b44166c0bed1a44",
     "url": "https://www.dltx.io/digitaldogs.github.io/static/css/main.050523cc.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://www.dltx.io/digitaldogs.github.io/static/js/2.365473cd.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "9b55efbd3c5ab14aa472",
-    "url": "https://www.dltx.io/digitaldogs.github.io/static/js/main.eb51b6ce.chunk.js"
+    "revision": "cbcf9b44166c0bed1a44",
+    "url": "https://www.dltx.io/digitaldogs.github.io/static/js/main.af39e758.chunk.js"
   },
   {
     "revision": "39f5d4c595f326282aa9",
