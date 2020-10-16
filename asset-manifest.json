@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/digitaldogs.github.io/static/css/main.050523cc.chunk.css",
+    "main.js": "/digitaldogs.github.io/static/js/main.d05276f4.chunk.js",
+    "main.js.map": "/digitaldogs.github.io/static/js/main.d05276f4.chunk.js.map",
+    "runtime-main.js": "/digitaldogs.github.io/static/js/runtime-main.c00e36da.js",
+    "runtime-main.js.map": "/digitaldogs.github.io/static/js/runtime-main.c00e36da.js.map",
+    "static/css/2.11829350.chunk.css": "/digitaldogs.github.io/static/css/2.11829350.chunk.css",
+    "static/js/2.00269fd6.chunk.js": "/digitaldogs.github.io/static/js/2.00269fd6.chunk.js",
+    "static/js/2.00269fd6.chunk.js.map": "/digitaldogs.github.io/static/js/2.00269fd6.chunk.js.map",
+    "index.html": "/digitaldogs.github.io/index.html",
+    "precache-manifest.1af900dba9f934d03e6e613f0e3f1c7f.js": "/digitaldogs.github.io/precache-manifest.1af900dba9f934d03e6e613f0e3f1c7f.js",
+    "service-worker.js": "/digitaldogs.github.io/service-worker.js",
+    "static/css/2.11829350.chunk.css.map": "/digitaldogs.github.io/static/css/2.11829350.chunk.css.map",
+    "static/css/main.050523cc.chunk.css.map": "/digitaldogs.github.io/static/css/main.050523cc.chunk.css.map",
+    "static/js/2.00269fd6.chunk.js.LICENSE.txt": "/digitaldogs.github.io/static/js/2.00269fd6.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c00e36da.js",
+    "static/css/2.11829350.chunk.css",
+    "static/js/2.00269fd6.chunk.js",
+    "static/css/main.050523cc.chunk.css",
+    "static/js/main.d05276f4.chunk.js"
+  ]
+}
