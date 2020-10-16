@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "73b5021b01044e1a5e34f8a9319d32d9",
+    "revision": "4e1fdec12ec244e68d6c81772ee91b45",
     "url": "/digitaldogs.github.io/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/digitaldogs.github.io/static/css/2.11829350.chunk.css"
   },
   {
-    "revision": "a11e60d1963872c38361",
+    "revision": "98db55d5fe23c19a35a0",
     "url": "/digitaldogs.github.io/static/css/main.050523cc.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/digitaldogs.github.io/static/js/2.cc452dc1.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "a11e60d1963872c38361",
-    "url": "/digitaldogs.github.io/static/js/main.314b6294.chunk.js"
+    "revision": "98db55d5fe23c19a35a0",
+    "url": "/digitaldogs.github.io/static/js/main.4fc52f5b.chunk.js"
   },
   {
     "revision": "f84e8c532a918e56fb5c",
