@@ -3,7 +3,6 @@ import { Formik, Field, Form } from "formik";
 import { Form as BForm, Button, Card, Alert } from "react-bootstrap";
 import setting from "../setting.json";
 import dogsERC721 from "../build/contracts/DogERC721.json";
-import { Link } from "react-router-dom";
 import Web3 from "web3";
 
 export default function Register() {
@@ -171,7 +170,7 @@ export default function Register() {
                 <Button variant="primary" type="submit">
                   Register
                 </Button>{" "}
-                <a href="/dog">Search Dog</a>
+                <a href={`${process.env.PUBLIC_URL}/dog`}>Search Dog</a>
               </Form>
             </Formik>
           </Card.Body>
