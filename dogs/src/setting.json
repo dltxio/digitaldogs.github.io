@@ -1,6 +1,6 @@
 {
     "Ethereum": {
-        "ContractAddress": "0x9bA44Fb5c22104df15eE07C622A6475126753b36",
+        "ContractAddress": "0x01b7C51adF478DdDa4112eD042aDD43d10893Bb7",
         "Node": "wss://localhost:8545",
         "GasPrice": "0x1406F40",
         "GasLimit": "0x3D0900",

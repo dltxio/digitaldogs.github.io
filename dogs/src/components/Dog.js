@@ -7,17 +7,48 @@ import setting from "../setting.json";
 
 export default function Dog() {
   const [dog, setDog] = useState([]);
-  const [totalSupply, setTotalSupply] = useState([]);
   const onSubmit = async (value) => {
-    const web3 = new Web3(
-      new Web3.providers.WebsocketProvider(setting.Ethereum.Node)
-    );
-    const contract = new web3.eth.Contract(
-      dogsERC721.abi,
-      setting.Ethereum.ContractAddress
-    );
-    const totalSupply = contract.methods.totalSupply();
-    console.log(totalSupply);
+    const { ethereum } = window;
+    try {
+      const web3 = new Web3(
+        new Web3.providers.WebsocketProvider(setting.Ethereum.Node)
+      );
+      const contract = new web3.eth.Contract(
+        dogsERC721.abi,
+        setting.Ethereum.ContractAddress
+      );
+      const puppy = contract.methods.getPuppy(value.index).encodeABI();
+      console.log(puppy);
+
+      const parameters = {
+        from: ethereum.selectedAddress, // must match user's active address.
+        gasPrice: setting.Ethereum.GasPrice, // customizable by user during MetaMask confirmation.
+        gas: setting.Ethereum.GasLimit, // customizable by user during MetaMask confirmation.
+        to: setting.Ethereum.ContractAddress, // Required except during contract publications.
+        value: "0x00", // Only required to send ether to the recipient from the initiating external account.
+        data: puppy, // Optional, but used for defining smart contract creation and interaction.
+      };
+
+      console.log(parameters);
+      // txHash is a hex string
+      // As with any RPC call, it may throw an error
+      const txHash = await ethereum.request({
+        method: "eth_call",
+        params: [parameters, "latest"],
+      });
+
+      const dog = web3.eth.abi.decodeParameters(
+        ["string", "uint256", "uint8", "uint256", "uint256"],
+        txHash
+      );
+      console.log(dog);
+      setDog(JSON.stringify(dog));
+    } catch (error) {
+      console.log(error);
+    }
+
+    //const getDog = contract.methods.getPuppy(value.index).encodeABI();
+    //setDog(getDog);
   };
   return (
     <div className="mt-5">
@@ -52,7 +83,6 @@ export default function Dog() {
           </Card.Body>
         </Card>
       </div>
-      {totalSupply ? <div>Total supply: {totalSupply}</div> : <div></div>}
       {dog ? <div>Dogs:{dog}</div> : <div>not found</div>}
     </div>
   );

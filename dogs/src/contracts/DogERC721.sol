@@ -90,18 +90,18 @@ contract DogERC721 is ERC721, Ownable {
             uint256,
             Sex,
             uint256,
-            uint256,
-            address
+            uint256
         )
+    //address
     {
-        address owner = ownerOf(_tokenId);
+        //address owner = ownerOf(_tokenId);
         return (
             pack[_tokenId].name,
             pack[_tokenId].dob,
             pack[_tokenId].sex,
             pack[_tokenId].dam,
-            pack[_tokenId].sire,
-            owner
+            pack[_tokenId].sire
+            //owner
         );
     }
 

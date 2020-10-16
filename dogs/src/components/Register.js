@@ -3,12 +3,13 @@ import { Formik, Field, Form } from "formik";
 import { Form as BForm, Button, Card, Alert } from "react-bootstrap";
 import setting from "../setting.json";
 import dogsERC721 from "../build/contracts/DogERC721.json";
+import { Link } from "react-router-dom";
 import Web3 from "web3";
 
 export default function Register() {
   const [error, setError] = useState();
   const [showError, setShowError] = useState(false);
-
+  const [dogAdded, setDogAdded] = useState();
   const onSubmit = async (value) => {
     const { ethereum } = window;
 
@@ -63,7 +64,8 @@ export default function Register() {
         method: "eth_sendTransaction",
         params: [transactionParameters],
       });
-      console.log(txHash);
+      setError("Dog added");
+      setShowError(true);
     } catch (error) {
       console.log(error);
     }
@@ -111,7 +113,6 @@ export default function Register() {
                     className="d-block my-3 w-100"
                   />
                 </BForm.Group>
-
                 <BForm.Group>
                   <Field
                     type="radio"
@@ -170,7 +171,8 @@ export default function Register() {
                 </BForm.Group>
                 <Button variant="primary" type="submit">
                   Register
-                </Button>
+                </Button>{" "}
+                <a href="/dog">Search Dog</a>
               </Form>
             </Formik>
           </Card.Body>
