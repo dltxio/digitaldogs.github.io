@@ -9,7 +9,6 @@ import Web3 from "web3";
 export default function Register() {
   const [error, setError] = useState();
   const [showError, setShowError] = useState(false);
-  const [dogAdded, setDogAdded] = useState();
   const onSubmit = async (value) => {
     const { ethereum } = window;
 
