@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "https://www.dltx.io/digitaldogs.github.io/precache-manifest.aa4b1bc94e27062e038a837fe0df3be2.js"
+  "https://www.dltx.io/digitaldogs.github.io/precache-manifest.9c646f87e2cb0aa4a73ee3906325ff27.js"
 );
 
 self.addEventListener('message', (event) => {
