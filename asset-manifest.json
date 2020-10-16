@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "https://www.dltx.io/digitaldogs.github.io/static/css/main.050523cc.chunk.css",
-    "main.js": "https://www.dltx.io/digitaldogs.github.io/static/js/main.ed1899c1.chunk.js",
-    "main.js.map": "https://www.dltx.io/digitaldogs.github.io/static/js/main.ed1899c1.chunk.js.map",
+    "main.js": "https://www.dltx.io/digitaldogs.github.io/static/js/main.fb1e01cb.chunk.js",
+    "main.js.map": "https://www.dltx.io/digitaldogs.github.io/static/js/main.fb1e01cb.chunk.js.map",
     "runtime-main.js": "https://www.dltx.io/digitaldogs.github.io/static/js/runtime-main.e740051d.js",
     "runtime-main.js.map": "https://www.dltx.io/digitaldogs.github.io/static/js/runtime-main.e740051d.js.map",
     "static/css/2.11829350.chunk.css": "https://www.dltx.io/digitaldogs.github.io/static/css/2.11829350.chunk.css",
-    "static/js/2.d06611e6.chunk.js": "https://www.dltx.io/digitaldogs.github.io/static/js/2.d06611e6.chunk.js",
-    "static/js/2.d06611e6.chunk.js.map": "https://www.dltx.io/digitaldogs.github.io/static/js/2.d06611e6.chunk.js.map",
+    "static/js/2.4aeabe1d.chunk.js": "https://www.dltx.io/digitaldogs.github.io/static/js/2.4aeabe1d.chunk.js",
+    "static/js/2.4aeabe1d.chunk.js.map": "https://www.dltx.io/digitaldogs.github.io/static/js/2.4aeabe1d.chunk.js.map",
     "index.html": "https://www.dltx.io/digitaldogs.github.io/index.html",
-    "precache-manifest.9c646f87e2cb0aa4a73ee3906325ff27.js": "https://www.dltx.io/digitaldogs.github.io/precache-manifest.9c646f87e2cb0aa4a73ee3906325ff27.js",
+    "precache-manifest.16e70a481c5284c5017f506c72582633.js": "https://www.dltx.io/digitaldogs.github.io/precache-manifest.16e70a481c5284c5017f506c72582633.js",
     "service-worker.js": "https://www.dltx.io/digitaldogs.github.io/service-worker.js",
     "static/css/2.11829350.chunk.css.map": "https://www.dltx.io/digitaldogs.github.io/static/css/2.11829350.chunk.css.map",
     "static/css/main.050523cc.chunk.css.map": "https://www.dltx.io/digitaldogs.github.io/static/css/main.050523cc.chunk.css.map",
-    "static/js/2.d06611e6.chunk.js.LICENSE.txt": "https://www.dltx.io/digitaldogs.github.io/static/js/2.d06611e6.chunk.js.LICENSE.txt"
+    "static/js/2.4aeabe1d.chunk.js.LICENSE.txt": "https://www.dltx.io/digitaldogs.github.io/static/js/2.4aeabe1d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e740051d.js",
     "static/css/2.11829350.chunk.css",
-    "static/js/2.d06611e6.chunk.js",
+    "static/js/2.4aeabe1d.chunk.js",
     "static/css/main.050523cc.chunk.css",
-    "static/js/main.ed1899c1.chunk.js"
+    "static/js/main.fb1e01cb.chunk.js"
   ]
 }
