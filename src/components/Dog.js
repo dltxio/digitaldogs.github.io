@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Formik, Field, Form } from "formik";
-import { Form as BForm, Button, Card } from "react-bootstrap";
+import { Form as BForm, Button } from "react-bootstrap";
 import Web3 from "web3";
 import dogsERC721 from "../build/contracts/DogERC721.json";
 import setting from "../setting.json";
 
 export default function Dog() {
-  const [dog, setDog] = useState([]);
+  const [dog, setDog] = useState();
   const onSubmit = async (value) => {
     const { ethereum } = window;
     try {
@@ -18,7 +18,7 @@ export default function Dog() {
         setting.Ethereum.ContractAddress
       );
       const puppy = contract.methods.getPuppy(value.index).encodeABI();
-      console.log(puppy);
+      //console.log(puppy);
 
       const parameters = {
         from: ethereum.selectedAddress, // must match user's active address.
@@ -29,7 +29,7 @@ export default function Dog() {
         data: puppy, // Optional, but used for defining smart contract creation and interaction.
       };
 
-      console.log(parameters);
+      //console.log(parameters);
       // txHash is a hex string
       // As with any RPC call, it may throw an error
       const txHash = await ethereum.request({
@@ -38,11 +38,17 @@ export default function Dog() {
       });
 
       const dog = web3.eth.abi.decodeParameters(
-        ["string", "uint256", "uint8", "uint256", "uint256"],
+        [
+          { type: "string", name: "Name" },
+          { type: "uint256", name: "DOB" },
+          { type: "uint8", name: "Sex" },
+          { type: "uint256", name: "Dam" },
+          { type: "uint256", name: "Sire" },
+        ],
         txHash
       );
       console.log(dog);
-      setDog(JSON.stringify(dog));
+      setDog(dog);
     } catch (error) {
       console.log(error);
     }
@@ -51,39 +57,48 @@ export default function Dog() {
     //setDog(getDog);
   };
   return (
-    <div className="mt-5">
-      <div>
-        <Card
-          className="text-center"
-          style={{ width: "50rem", margin: "auto", float: "none" }}
+    <>
+      <div className="dog">
+        <h2>Search dog</h2>
+        <Formik
+          initialValues={{
+            index: "",
+          }}
+          onSubmit={onSubmit}
         >
-          <Card.Body>
-            <Formik
-              initialValues={{
-                index: "",
-              }}
-              onSubmit={onSubmit}
-            >
-              <Form className="mt-5">
-                <BForm.Group>
-                  <BForm.Label className="d-block my-3">Index</BForm.Label>
-                  <Field
-                    id="index"
-                    name="index"
-                    placeholder=""
-                    className="d-block my-3 w-100"
-                  />
-                </BForm.Group>
+          <Form className="mt-5">
+            <BForm.Group>
+              <BForm.Label className="d-block my-3">Index</BForm.Label>
+              <Field
+                id="index"
+                name="index"
+                placeholder=""
+                className="d-block my-3 w-100"
+              />
+            </BForm.Group>
 
-                <Button variant="primary" type="submit">
-                  Submit
-                </Button>
-              </Form>
-            </Formik>
-          </Card.Body>
-        </Card>
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Formik>
+        <p></p>
+        {dog ? (
+          <div>
+            <label>Name: {dog.Name}</label>
+            <p></p>
+            <label>DOB: {dog.DOB}</label>
+            <p></p>
+            <label>Sex: {dog.Sex}</label>
+            <p></p>
+            <label>Dam ID: {dog.Dam}</label>
+            <p></p>
+            <label>Sire ID: {dog.Sire}</label>
+          </div>
+        ) : (
+          <div></div>
+        )}
       </div>
-      {dog ? <div>Dogs:{dog}</div> : <div>not found</div>}
-    </div>
+    </>
   );
 }

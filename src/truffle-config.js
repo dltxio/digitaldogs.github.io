@@ -17,12 +17,13 @@
  * phrase from a file you've .gitignored so it doesn't accidentally become public.
  *
  */
-
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+require("dotenv").config();
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 // const infuraKey = "fj4jll3k.....";
 //
 // const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+const mnemonic =
+  "degree script liquid train ahead shift exchange huge dutch author float give";
 
 module.exports = {
   /**
@@ -42,9 +43,19 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
+    rinkeby: {
+      provider: function () {
+        return new HDWalletProvider(
+          mnemonic,
+          "https://rinkeby.infura.io/v3/df7dcb61f2ee4a1da04b92dcffe3802f"
+        );
+      },
+      network_id: 4,
+      gas: 4500000,
+    },
     development: {
-      host: "127.0.0.1", // Localhost (default: none)
-      port: 8545, // Standard Ethereum port (default: none)
+      host: "Localhost", // Localhost (default: none)
+      port: 7545, // Standard Ethereum port (default: none)
       network_id: "5777", // Any network (default: none)
     },
     // Another network with more advanced options...

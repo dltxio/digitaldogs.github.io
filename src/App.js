@@ -1,11 +1,17 @@
 import React from "react";
-import "./App.css";
-import Routes from "../src/Routes";
+import Dog from "./components/Dog";
+import Register from "./components/Register";
 
 function App() {
   return (
     <div className="App">
-      <Routes />
+      <header className="App-header">
+        <h1>Digital dog</h1>
+      </header>
+      <div className="content">
+        <Register />
+        <Dog />
+      </div>
     </div>
   );
 }
