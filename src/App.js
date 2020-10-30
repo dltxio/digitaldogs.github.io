@@ -2,11 +2,11 @@ import React from "react";
 import Dog from "./components/Dog";
 import Register from "./components/Register";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Digital dogs</h1>
+        <h1>Digital Dogs</h1>
       </header>
       <div className="content">
         <Register />
