@@ -31,6 +31,7 @@ const Register = () => {
       const web3 = new Web3(
         new Web3.providers.WebsocketProvider(setting.Ethereum.Node)
       );
+
       const contract = new web3.eth.Contract(
         dogsERC721.abi,
         setting.Ethereum.ContractAddress
@@ -49,6 +50,7 @@ const Register = () => {
         .encodeABI();
 
       console.log(puppy);
+
       const transactionParameters = {
         from: ethereum.selectedAddress, // must match user's active address.
         gasPrice: setting.Ethereum.GasPrice, // customizable by user during MetaMask confirmation.
@@ -74,7 +76,7 @@ const Register = () => {
 
   return (
     <div className="register">
-      <h2>Register your dog on the blockchain</h2>
+      <h2>Register your dog on the Ethereum blockchain</h2>
       <Alert variant="danger" show={showError}>
         {error}
       </Alert>
@@ -89,7 +91,7 @@ const Register = () => {
           microchip: "",
           damID: "",
           sireID: "",
-          ownerPublicKey: "",
+          ownerPublicKey: "0x00",
         }}
         onSubmit={onSubmit}
       >
@@ -104,7 +106,7 @@ const Register = () => {
             />
           </BForm.Group>
           <BForm.Group>
-            <BForm.Label className="d-block my-3">DOB</BForm.Label>
+            <BForm.Label className="d-block my-3">Date Of Birth</BForm.Label>
             <Field
               id="dob"
               name="dob"
@@ -127,7 +129,7 @@ const Register = () => {
             <Field
               id="microchip"
               name="microchip"
-              placeholder=""
+              placeholder="0x00"
               className="d-block my-3 w-100"
             />
           </BForm.Group>

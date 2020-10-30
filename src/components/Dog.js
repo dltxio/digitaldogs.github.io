@@ -19,7 +19,7 @@ const Dog = () => {
         dogsERC721.abi,
         setting.Ethereum.ContractAddress
       );
-      
+
       const puppy = contract.methods.getPuppy(value.index).encodeABI();
       //console.log(puppy);
 
@@ -59,10 +59,11 @@ const Dog = () => {
     //const getDog = contract.methods.getPuppy(value.index).encodeABI();
     //setDog(getDog);
   };
+  
   return (
     <>
       <div className="dog">
-        <h2>Search dog</h2>
+        <h2>Search for a dog</h2>
         <Formik
           initialValues={{
             index: "",
