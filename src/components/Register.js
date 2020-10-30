@@ -5,7 +5,7 @@ import setting from "../setting.json";
 import dogsERC721 from "../build/contracts/DogERC721.json";
 import Web3 from "web3";
 
-export default function Register() {
+const Register = () => {
   const [error, setError] = useState();
   const [showError, setShowError] = useState(false);
   const [txHash, setTxHash] = useState();
@@ -166,3 +166,5 @@ export default function Register() {
     </div>
   );
 }
+
+export default Home;
