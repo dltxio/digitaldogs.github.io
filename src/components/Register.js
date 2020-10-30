@@ -167,4 +167,4 @@ const Register = () => {
   );
 }
 
-export default Home;
+export default Register;
