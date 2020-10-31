@@ -19,9 +19,7 @@
  */
 require("dotenv").config();
 const HDWalletProvider = require("@truffle/hdwallet-provider");
-// const infuraKey = "fj4jll3k.....";
-//
-// const fs = require('fs');
+
 const mnemonic =
   "degree script liquid train ahead shift exchange huge dutch author float give";
 
