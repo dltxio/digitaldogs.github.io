@@ -1,10 +1,15 @@
 ### Rinkeby
 
+
+https://rinkeby.etherscan.io/address/0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35
+
+
+#### Old
 `0x5a93b9da44b464143120202cb54183f808bf3288`
 `Testnet:`
-  `HDWalletProvider:https://rinkeby.infura.io/v3/df7dcb61f2ee4a1da04b92dcffe3802f`
+  `HDWalletProvider:https://rinkeby.infura.io/v3/`
   `ContractAddress: "0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35"`
-  `WebsocketProvider:wss://rinkeby.infura.io/ws/v3/df7dcb61f2ee4a1da04b92dcffe3802f`
+  `WebsocketProvider:wss://rinkeby.infura.io/ws/v3/`
 
 ### Mainnet 
 v0.1 `0x397A3e67a93C11F171ab04bF5Cc91101f9eDd84F`
@@ -41,3 +46,23 @@ Digital Dogs Australia (DigitalDogs.io) own the address 0xa6f0525721fB73d7009165
 
 ## github pages
 yarn deploy 
+
+## Registering a contract on Etherscan
+
+The source code will need to be flattened to register a contract on Etherscan.
+
+To flatten the contract code:
+
+```
+cd /path/to/project/files/
+npx truffle-flattener contracts/DogERC721.sol > build/DogERC721/Token.flattened.sol
+
+```
+
+Go to Etherscan (https://etherscan.io/) and load the contract. There will be a
+"verify" link. Click on this link and specify the following:
+
+Contract Type: single file
+Contract Compiler Version: 0.6.0
+
+(There are now two other Contract Types for registering source code; multi-file, and json; these are experimental and will require more investigation).
