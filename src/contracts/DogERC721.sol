@@ -1,9 +1,9 @@
-pragma solidity ^0.6.2;
+pragma solidity ^0.6.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-enum Sex {Male, Female}
+enum Sex { Male, Female }
 
 struct Dog {
     string name;
@@ -24,7 +24,6 @@ contract DogERC721 is ERC721, Ownable {
     string private _name;
     string private _symbol;
     mapping(uint256 => string) private _tokenURIs;
-    //uint256 private _fee;
 
     bytes4 private constant _INTERFACE_ID_ERC721_METADATA = 0x5b5e139f;
 
@@ -35,14 +34,8 @@ contract DogERC721 is ERC721, Ownable {
         //_registerInterface(_INTERFACE_ID_ERC721_METADATA);
     }
 
-    function addLitter(
-        uint256 dob,
-        uint256 dam,
-        uint256 sire,
-        uint256 numberOfMales,
-        uint256 numberOfFemales,
-        address owner
-    ) external payable onlyOwner() {
+    function addLitter(uint256 dob, uint256 dam, uint256 sire, uint256 numberOfMales, uint256 numberOfFemales, address owner) external onlyOwner() {
+
         for (uint256 i = 0; i < numberOfMales; i++) {
             _addPuppy("", dob, "", Sex.Male, dam, sire, owner);
         }
@@ -52,48 +45,19 @@ contract DogERC721 is ERC721, Ownable {
         }
     }
 
-    function addPuppy(
-        string calldata dogsName,
-        uint256 dob,
-        string calldata microchip,
-        Sex sex,
-        uint256 dam,
-        uint256 sire,
-        address owner
-    ) external payable onlyOwner() {
-        //require(msg.value >= _fee, "Fee too small");
-
-        _addPuppy(dogsName, dob, microchip, sex, dam, sire, owner);
+    function addPuppy(string calldata name, uint256 dob, Sex sex, uint256 dam, uint256 sire, address owner) external onlyOwner() {
+        _addPuppy(name, dob, sex, dam, sire, owner);
     }
 
-    function _addPuppy(
-        string memory dogsName,
-        uint256 dob,
-        string memory microchip,
-        Sex sex,
-        uint256 dam,
-        uint256 sire,
-        address owner
-    ) internal {
+    function _addPuppy(string memory name, uint256 dob, Sex sex, uint256 dam, uint256 sire, address owner) internal {
         uint256 id = pack.length;
-        pack.push(Dog(dogsName, dob, microchip, dam, sire, sex, now));
+        pack.push(Dog(name, dob, '', dam, sire, sex, now));
 
         emit Transfer(owner, owner, id);
         emit PuppyAdded(id);
     }
 
-    function getPuppy(uint256 _tokenId)
-        external
-        view
-        returns (
-            string memory,
-            uint256,
-            Sex,
-            uint256,
-            uint256
-        )
-    //address
-    {
+    function getPuppy(uint256 _tokenId) external view returns (string memory, uint256, Sex, uint256, uint256) {
         //address owner = ownerOf(_tokenId);
         return (
             pack[_tokenId].name,
@@ -111,17 +75,11 @@ contract DogERC721 is ERC721, Ownable {
         emit PuppyRemoved(_tokenId);
     }
 
-    function updateTitle(uint256 _tokenId, string calldata _newName)
-        external
-        onlyOwner()
-    {
+    function updateTitle(uint256 _tokenId, string calldata _newName) external onlyOwner() {
         pack[_tokenId].name = _newName;
     }
 
-    function updateMicrochip(uint256 _tokenId, string calldata _microchip)
-        external
-        onlyOwner()
-    {
+    function updateMicrochip(uint256 _tokenId, string calldata _microchip) external onlyOwner() {
         pack[_tokenId].microchip = _microchip;
     }
 
