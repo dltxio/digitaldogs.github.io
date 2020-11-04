@@ -1,4 +1,4 @@
-pragma solidity ^0.6.0;
+pragma solidity ^0.6.2;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -45,13 +45,13 @@ contract DogERC721 is ERC721, Ownable {
         }
     }
 
-    function addPuppy(string calldata name, uint256 dob, Sex sex, uint256 dam, uint256 sire, address owner) external onlyOwner() {
-        _addPuppy(name, dob, sex, dam, sire, owner);
+    function addPuppy(string calldata name, uint256 dob, string calldata microchip, Sex sex, uint256 dam, uint256 sire, address owner) external onlyOwner() {
+        _addPuppy(name, dob, microchip, sex, dam, sire, owner);
     }
 
-    function _addPuppy(string memory name, uint256 dob, Sex sex, uint256 dam, uint256 sire, address owner) internal {
+    function _addPuppy(string memory name, uint256 dob, string memory microchip, Sex sex, uint256 dam, uint256 sire, address owner) internal {
         uint256 id = pack.length;
-        pack.push(Dog(name, dob, '', dam, sire, sex, now));
+        pack.push(Dog(name, dob, microchip, dam, sire, sex, now));
 
         emit Transfer(owner, owner, id);
         emit PuppyAdded(id);
