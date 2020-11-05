@@ -8,7 +8,7 @@ enum Sex { Male, Female }
 struct Dog {
     string name;
     uint256 dob;
-    string microchip;
+    bytes32 microchip;
     uint256 dam;
     uint256 sire;
     Sex sex;
@@ -17,7 +17,7 @@ struct Dog {
 
 contract DogERC721 is ERC721, Ownable {
     mapping(address => bool) private _writers;
-    mapping(bytes32 => Dog) private _dogs;
+    mapping(bytes32 => Dog) private _dogs; 
 
     Dog[] public pack;
 
@@ -37,19 +37,19 @@ contract DogERC721 is ERC721, Ownable {
     function addLitter(uint256 dob, uint256 dam, uint256 sire, uint256 numberOfMales, uint256 numberOfFemales, address owner) external onlyOwner() {
 
         for (uint256 i = 0; i < numberOfMales; i++) {
-            _addPuppy("", dob, "", Sex.Male, dam, sire, owner);
+            _addPuppy("", dob, 0x00, Sex.Male, dam, sire, owner);
         }
 
         for (uint256 i = 0; i < numberOfFemales; i++) {
-            _addPuppy("", dob, "", Sex.Female, dam, sire, owner);
+            _addPuppy("", dob, 0x00, Sex.Female, dam, sire, owner);
         }
     }
 
-    function addPuppy(string calldata name, uint256 dob, string calldata microchip, Sex sex, uint256 dam, uint256 sire, address owner) external onlyOwner() {
+    function addPuppy(string calldata name, uint256 dob, bytes32 microchip, Sex sex, uint256 dam, uint256 sire, address owner) external onlyOwner() {
         _addPuppy(name, dob, microchip, sex, dam, sire, owner);
     }
 
-    function _addPuppy(string memory name, uint256 dob, string memory microchip, Sex sex, uint256 dam, uint256 sire, address owner) internal {
+    function _addPuppy(string memory name, uint256 dob, bytes32 microchip, Sex sex, uint256 dam, uint256 sire, address owner) internal {
         uint256 id = pack.length;
         pack.push(Dog(name, dob, microchip, dam, sire, sex, now));
 
