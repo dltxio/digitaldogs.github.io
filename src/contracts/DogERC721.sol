@@ -28,9 +28,9 @@ contract DogERC721 is ERC721, Ownable {
 
     bytes4 private constant _INTERFACE_ID_ERC721_METADATA = 0x5b5e139f;
 
-    constructor() public ERC721("BEAGLES", "DDA") {
+    constructor() public ERC721("BEAGLES", "DD") {
         //_name = "BEAGLES";
-        //_symbol = "DDA";
+        //_symbol = "DD";
         // register the supported interfaces to conform to ERC721 via ERC165
         //_registerInterface(_INTERFACE_ID_ERC721_METADATA);
     }
