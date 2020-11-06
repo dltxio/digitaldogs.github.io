@@ -14,7 +14,7 @@ const TotalSupply = async () => {
     setting.Ethereum.ContractAddress
   );
 
-  const result = await contract.methods.totalSupply();
+  const result = await contract.methods.name();
   console.log(result);
   setSupply(result);
   

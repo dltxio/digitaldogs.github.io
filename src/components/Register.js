@@ -75,8 +75,9 @@ const Register = () => {
   };
 
   return (
-    <div className="register">
-      <h2>Register your dog on the Ethereum blockchain</h2>
+    <section className="callout" id="register">
+      <div className="container text-center">
+      <h2 className="mx-auto mb-5">Register your dog on the Ethereum blockchain</h2>
       <Alert variant="danger" show={showError}>
         {error}
       </Alert>
@@ -166,6 +167,7 @@ const Register = () => {
         </Form>
       </Formik>
     </div>
+    </section>
   );
 }
 

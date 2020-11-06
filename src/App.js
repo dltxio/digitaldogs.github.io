@@ -29,7 +29,7 @@ const App = () => {
           </h3>
 
           <p>
-            <TotalSupply></TotalSupply>
+            {/* <TotalSupply></TotalSupply> */}
           </p>
           <a className="btn btn-primary btn-xl js-scroll-trigger" href="#about">
             Coming soon!
@@ -56,6 +56,14 @@ const App = () => {
 
       <Register />
       <Dog />
+
+      <section className="content-section bg-primary text-white">
+        <div className="container text-center">
+          <h2 className="mb-4">Get in touch</h2>
+          <p>We understand this technology is new and confusing.  Please email woof @ digitaldogs.io to have a chat.</p>
+        </div>
+      </section>
+
     </div>
   );
 };
