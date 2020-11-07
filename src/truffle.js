@@ -1,8 +1,6 @@
 require("dotenv").config();
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
-const mnemonic = "degree script liquid train ahead shift exchange huge dutch author float give";
-
 module.exports = {
   networks: {
     rinkeby: {
