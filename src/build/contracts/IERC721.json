@@ -2871,8 +2871,8 @@
     "version": "0.6.2+commit.bacdbe57.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.3.0",
-  "updatedAt": "2020-10-19T05:46:48.209Z",
+  "schemaVersion": "3.2.5",
+  "updatedAt": "2020-11-04T22:32:13.910Z",
   "devdoc": {
     "details": "Required interface of an ERC721 compliant contract.",
     "methods": {
