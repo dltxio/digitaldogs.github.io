@@ -43,8 +43,8 @@ Digital Dogs Australia (DigitalDogs.io) own the address 0xa6f0525721fB73d7009165
 }
 ```
 
-## github pages
-yarn deploy 
+## Github Pages
+`yarn deploy`
 
 ## Registering a contract on Etherscan
 
