@@ -29,7 +29,7 @@ const App = () => {
           </h3>
 
           <p>
-            <TotalSupply></TotalSupply>
+
           </p>
           <a className="btn btn-primary btn-xl js-scroll-trigger" href="#about">
             Coming soon!
@@ -44,7 +44,7 @@ const App = () => {
             <div className="col-lg-10 mx-auto">
               <h2>What we do <i className="fa fa-paw"></i></h2>
               <p className="lead mb-5">Here at Digital Dogs, we provide a harmonised digital registry of pedigree dogs to breeders, dog associations, microchip registries and government bodies.
-                Blockchains are an emergent technology that has broad applications.  Digital Dogs Australia harness that technology to make dog registrations more secure, transparent and affordable!</p>
+                Blockchains are an emergent technology that has broad applications.  Digital Dogs harness that technology to make dog registrations more secure, transparent and affordable!</p>
 
               <p className="lead mb-5" id="totalSupply"></p>
 
