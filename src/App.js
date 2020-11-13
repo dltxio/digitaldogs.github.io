@@ -9,9 +9,14 @@ import "./vendor/fontawesome-free/css/all.min.css";
 import "./vendor/simple-line-icons/css/simple-line-icons.css";
 // import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic";
 
-
+import Web3 from "web3";
+import dogsERC721 from "./build/contracts/DogERC721.json";
+import setting from "./setting.json";
 
 const App = () => {
+
+
+
   return (
     <div className="App" id="page-top">
       <a className="menu-toggle rounded" href="#">

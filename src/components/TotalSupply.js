@@ -6,6 +6,7 @@ import setting from "../setting.json";
 
 const TotalSupply = () => {
   const [supply, setSupply] = useState(0);
+  const [breed, setBreed] = useState();
 
   //https://rinkby.infura.io/v3/64710bd1f20c42519965cd9c1dab700b
   //const web3 = new Web3(new Web3.providers.WebsocketProvider(setting.Ethereum.Node));
@@ -16,19 +17,26 @@ const TotalSupply = () => {
     setting.Ethereum.ContractAddress
   );
 
-  contract.methods.totalSupply().call()
+  // contract.methods.totalSupply().call()
+  // .then(function(result){
+  //     setSupply(result)
+  // });
+
+  contract.methods.name().call()
   .then(function(result){
-      setSupply(result)
+      setBreed(result)
   });
 
   const loadCount = async () => {
-    const result = await contract.methods.totalSupply();
+    const result = await contract.methods.name().call();
     console.log(result);
-    setSupply(result.data);
+    setSupply(result);
   }
 
+  loadCount();
+
   return (
-    <h2>Total Supply {supply}</h2>
+    <h2>Total Supply {supply} of {breed}</h2>
   );
 };
 
