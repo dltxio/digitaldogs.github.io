@@ -9,6 +9,8 @@ import "./vendor/fontawesome-free/css/all.min.css";
 import "./vendor/simple-line-icons/css/simple-line-icons.css";
 // import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic";
 
+
+
 const App = () => {
   return (
     <div className="App" id="page-top">
@@ -24,7 +26,7 @@ const App = () => {
           <h3 className="mb-5">
             <em>
               Provable lineage on the ethereum blockchain
-              <i class="fab fa-ethereum"></i>
+              <i className="fab fa-ethereum"></i>
             </em>
           </h3>
 
