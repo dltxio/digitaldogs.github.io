@@ -1,5 +1,9 @@
 ### Rinkeby
 
+https://rinkeby.etherscan.io/address/0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35
+
+
+#### Old
 `0x5a93b9da44b464143120202cb54183f808bf3288`
 
 `Testnet:`
@@ -58,3 +62,23 @@ yarn start
 
 ## github pages
 yarn deploy 
+
+## Registering a contract on Etherscan
+
+The source code will need to be flattened to register a contract on Etherscan.
+
+To flatten the contract code:
+
+```
+cd /path/to/project/files/
+npx truffle-flattener contracts/DogERC721.sol > build/DogERC721/Token.flattened.sol
+
+```
+
+Go to Etherscan (https://etherscan.io/) and load the contract. There will be a
+"verify" link. Click on this link and specify the following:
+
+Contract Type: single file
+Contract Compiler Version: 0.6.0
+
+(There are now two other Contract Types for registering source code; multi-file, and json; these are experimental and will require more investigation).

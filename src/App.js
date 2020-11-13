@@ -1,19 +1,28 @@
 import React from "react";
 import Dog from "./components/Dog";
-import Register from "./components/Register";
 import Nav from "./components/Nav";
+import Register from "./components/Register";
+import TotalSupply from "./components/TotalSupply";
 
 import "./css/stylish-portfolio.min.css";
 import "./vendor/fontawesome-free/css/all.min.css";
 import "./vendor/simple-line-icons/css/simple-line-icons.css";
 // import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic";
 
+import Web3 from "web3";
+import dogsERC721 from "./build/contracts/DogERC721.json";
+import setting from "./setting.json";
+
 const App = () => {
+
+
+
   return (
     <div className="App" id="page-top">
       <a className="menu-toggle rounded" href="#">
         <i className="fas fa-bars"></i>
       </a>
+
       <Nav />
 
       <header className="masthead d-flex">
@@ -21,10 +30,14 @@ const App = () => {
           <h1 className="mb-1">Digital Dogs</h1>
           <h3 className="mb-5">
             <em>
-              Provable lineage on the ethereum blockchain{" "}
-              <i class="fab fa-ethereum"></i>
+              Provable lineage on the ethereum blockchain
+              <i className="fab fa-ethereum"></i>
             </em>
           </h3>
+
+          <p>
+            <TotalSupply></TotalSupply>
+          </p>
           <a className="btn btn-primary btn-xl js-scroll-trigger" href="#about">
             Coming soon!
           </a>
@@ -50,6 +63,14 @@ const App = () => {
 
       <Register />
       <Dog />
+
+      <section className="content-section bg-primary text-white">
+        <div className="container text-center">
+          <h2 className="mb-4">Get in touch</h2>
+          <p>We understand this technology is new and confusing.  Please email woof @ digitaldogs.io to have a chat.</p>
+        </div>
+      </section>
+
     </div>
   );
 };
