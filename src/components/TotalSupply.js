@@ -6,7 +6,7 @@ import setting from "../setting.json";
 
 const TotalSupply = () => {
   const [supply, setSupply] = useState(0);
-  const [breed, setBreed] = useState();
+  const [breed, setBreed] = useState("");
 
   const web3 = new Web3(new Web3.providers.WebsocketProvider(process.env.REACT_APP_RINKEBY_URL));
 
