@@ -740,3 +740,6 @@ contract = w3.eth.contract('0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35', abi=abi
 
 name = contract.functions.name().call()
 print (name)
+
+tx_hash = contract.functions.addPuppy(bob, 100).transact({'from': alice})
+print (tx_hash)
