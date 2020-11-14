@@ -10,9 +10,11 @@ const TotalSupply = () => {
 
   const web3 = new Web3(new Web3.providers.WebsocketProvider(process.env.REACT_APP_RINKEBY_URL));
 
+  const abi = [];
+
   const contract = new web3.eth.Contract(
     dogsERC721.abi,
-    setting.Ethereum.ContractAddress
+    ""
   );
 
   const loadBreed = async () => {
