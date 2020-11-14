@@ -36,7 +36,7 @@ const App = () => {
           </h3>
 
           <p>
-            <TotalSupply></TotalSupply>
+
           </p>
           <a className="btn btn-primary btn-xl js-scroll-trigger" href="#about">
             Coming soon!
