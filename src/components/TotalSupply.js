@@ -15,7 +15,7 @@ const TotalSupply = () => {
 
   const contract = new web3.eth.Contract(
     dogsERC721.abi,
-    process.env.REACT_APP_CONTRACT
+    process.env.REACT_APP_CONTRACT_ADDRESS
   );
 
   const loadBreed = async () => {

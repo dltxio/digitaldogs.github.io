@@ -1,5 +1,5 @@
 import React from "react";
-import Dog from "./components/Dog";
+import Search from "./components/Search";
 import Nav from "./components/Nav";
 import Register from "./components/Register";
 import TotalSupply from "./components/TotalSupply";
@@ -57,8 +57,16 @@ const App = () => {
         </div>
       </section>
 
-      <Register />
-      <Dog />
+      <section className="callout" id="register">
+        <div className="container text-center">
+          <Register />
+        </div>
+      </section>
+
+      <section className="content-section bg-light" id="serch">
+        <Search />
+      </section>
+      
 
       <section className="content-section bg-primary text-white">
         <div className="container text-center">

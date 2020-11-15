@@ -12,12 +12,12 @@ const Dog = () => {
 
     try {
       const web3 = new Web3(
-        new Web3.providers.WebsocketProvider(setting.Ethereum.Node)
+        new Web3.providers.WebsocketProvider(process.env.REACT_APP_NODE)
       );
 
       const contract = new web3.eth.Contract(
         dogsERC721.abi,
-        setting.Ethereum.ContractAddress
+        process.env.REACT_APP_CONTRACT_ADDRESS
       );
 
       const puppy = contract.methods.getPuppy(value.index).encodeABI();
@@ -62,7 +62,7 @@ const Dog = () => {
   
   return (
     <>
-      <div className="dog">
+      <div className="container text-center search">
         <h2>Search for a dog</h2>
         <Formik
           initialValues={{
