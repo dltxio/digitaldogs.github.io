@@ -3,16 +3,13 @@
 https://rinkeby.etherscan.io/address/0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35
 
 
-#### Old
-`0x5a93b9da44b464143120202cb54183f808bf3288`
-
 `Testnet:`
   `HDWalletProvider:https://rinkeby.infura.io/v3/`
   `ContractAddress: "0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35"`
   `WebsocketProvider:wss://rinkeby.infura.io/ws/v3/`
 
 Owner: `0x06D3072D44F451232e0dC8dB323759300Bc8477F`  
-Contract: `0xf5ac0211664DED2B9E07825a98c333B32d9dFc61`
+Contract: `0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35`
 
 ### Mainnet 
 
@@ -69,10 +66,9 @@ The source code will need to be flattened to register a contract on Etherscan.
 
 To flatten the contract code:
 
-```
+```bash
 cd /path/to/project/files/
-npx truffle-flattener contracts/DogERC721.sol > build/DogERC721/Token.flattened.sol
-
+npx truffle-flattener contracts/DogERC721.sol > build/DogERC721.flattened.sol
 ```
 
 Go to Etherscan (https://etherscan.io/) and load the contract. There will be a

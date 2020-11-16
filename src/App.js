@@ -1,5 +1,5 @@
 import React from "react";
-import Dog from "./components/Dog";
+import Search from "./components/Search";
 import Nav from "./components/Nav";
 import Register from "./components/Register";
 import TotalSupply from "./components/TotalSupply";
@@ -9,13 +9,7 @@ import "./vendor/fontawesome-free/css/all.min.css";
 import "./vendor/simple-line-icons/css/simple-line-icons.css";
 // import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic";
 
-import Web3 from "web3";
-import dogsERC721 from "./build/contracts/DogERC721.json";
-import setting from "./setting.json";
-
 const App = () => {
-
-
 
   return (
     <div className="App" id="page-top">
@@ -36,7 +30,7 @@ const App = () => {
           </h3>
 
           <p>
-            <TotalSupply></TotalSupply>
+
           </p>
           <a className="btn btn-primary btn-xl js-scroll-trigger" href="#about">
             Coming soon!
@@ -53,7 +47,9 @@ const App = () => {
               <p className="lead mb-5">Here at Digital Dogs, we provide a harmonised digital registry of pedigree dogs to breeders, dog associations, microchip registries and government bodies.
                 Blockchains are an emergent technology that has broad applications.  Digital Dogs harness this technology to make dog registrations more secure, transparent and affordable!</p>
 
-              <p className="lead mb-5" id="totalSupply"></p>
+              <p className="lead mb-5" id="totalSupply">
+                <TotalSupply></TotalSupply>
+              </p>
 
               <a className="btn btn-dark btn-xl js-scroll-trigger" href="#services">Demo</a>
             </div>
@@ -61,8 +57,16 @@ const App = () => {
         </div>
       </section>
 
-      <Register />
-      <Dog />
+      <section className="callout" id="register">
+        <div className="container text-center">
+          <Register />
+        </div>
+      </section>
+
+      <section className="content-section bg-light" id="serch">
+        <Search />
+      </section>
+      
 
       <section className="content-section bg-primary text-white">
         <div className="container text-center">
