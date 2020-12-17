@@ -59,6 +59,8 @@ contract DogERC721 is ERC721, Ownable {
         uint256 id = pack.length;
         pack.push(Dog(name, dob, microchip, dam, sire, sex, now));
 
+        count += 1;
+
         emit Transfer(owner, owner, id);
         emit PuppyAdded(id);
     }
@@ -77,6 +79,7 @@ contract DogERC721 is ERC721, Ownable {
 
     function removePuppy(uint256 tokenId) external onlyOwner() {
         delete pack[tokenId];
+        count -= 1;
         emit PuppyRemoved(tokenId);
     }
 
