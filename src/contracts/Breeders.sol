@@ -4,7 +4,7 @@ pragma solidity ^0.6.2;
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 //https://github.com/ethereum/EIPs/issues/780
-contract BeedersRegistry, Ownable {
+contract BeedersRegistry is Ownable {
 
     mapping(address => mapping(address => mapping(bytes32 => bytes32))) public registry;
 

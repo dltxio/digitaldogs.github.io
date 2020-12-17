@@ -1,5 +1,5 @@
-
-pragma solidity ^0.5.4;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.6.2;
 
 interface ERC725 {
     event DataChanged(bytes32 indexed key, bytes32 indexed value);
