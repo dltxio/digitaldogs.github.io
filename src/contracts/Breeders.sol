@@ -2,19 +2,12 @@
 pragma solidity ^0.6.2;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "./IERC780.sol";
 
 //https://github.com/ethereum/EIPs/issues/780
-contract BeedersRegistry is Ownable {
+contract BeedersRegistry is IERC780, Ownable {
 
     mapping(address => mapping(address => mapping(bytes32 => bytes32))) public registry;
-
-    event ClaimSet(address indexed issuer, address indexed subject, bytes32 indexed key, bytes32 value, uint updatedAt);
-
-    event ClaimRemoved(
-        address indexed issuer,
-        address indexed subject,
-        bytes32 indexed key,
-        uint removedAt);
 
     // create or update clams
     function setClaim(address subject, bytes32 key, bytes32 value) public {
@@ -35,4 +28,12 @@ contract BeedersRegistry is Ownable {
         delete registry[issuer][subject][key];
         emit ClaimRemoved(msg.sender, subject, key, now);
     }
+
+    event ClaimSet(address indexed issuer, address indexed subject, bytes32 indexed key, bytes32 value, uint updatedAt);
+
+    event ClaimRemoved(
+        address indexed issuer,
+        address indexed subject,
+        bytes32 indexed key,
+        uint removedAt);
 }

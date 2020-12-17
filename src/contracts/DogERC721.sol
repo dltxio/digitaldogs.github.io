@@ -33,20 +33,19 @@ contract DogERC721 is ERC721, Ownable {
         //_name = "BEAGLES";
         //_symbol = "DD";
         // register the supported interfaces to conform to ERC721 via ERC165
-        //_registerInterface(_INTERFACE_ID_ERC721_METADATA);
+        _registerInterface(_INTERFACE_ID_ERC721_METADATA);
     }
 
     function count() public view returns (uint256) {
         return _count;
     }
 
-    function addLitter(uint256 dob, uint256 dam, uint256 sire, uint256 numberOfMales, uint256 numberOfFemales, address owner) external onlyOwner() {
-
-        for (uint256 i = 0; i < numberOfMales; i++) {
+    function addLitter(uint256 dob, uint256 dam, uint256 sire, uint256 males, uint256 females, address owner) external onlyOwner() {
+        for (uint256 i = 0; i < males; i++) {
             _addPuppy("", dob, 0x00, Sex.Male, dam, sire, owner);
         }
 
-        for (uint256 i = 0; i < numberOfFemales; i++) {
+        for (uint256 i = 0; i < females; i++) {
             _addPuppy("", dob, 0x00, Sex.Female, dam, sire, owner);
         }
     }
@@ -66,14 +65,12 @@ contract DogERC721 is ERC721, Ownable {
     }
 
     function getPuppy(uint256 tokenId) external view returns (string memory, uint256, Sex, uint256, uint256) {
-        //address owner = ownerOf(_tokenId);
         return (
             pack[tokenId].name,
             pack[tokenId].dob,
             pack[tokenId].sex,
             pack[tokenId].dam,
             pack[tokenId].sire
-            //owner
         );
     }
 
