@@ -10,7 +10,8 @@ const Register = () => {
   const [showError, setShowError] = useState(false);
   const [txHash, setTxHash] = useState();
   const [showTxHash, setShowTxHash] = useState(false);
-  const onSubmit = async (value) => {
+
+  const onSubmit = async value => {
     console.log(value);
     const { ethereum } = window;
 
@@ -38,14 +39,13 @@ const Register = () => {
       );
 
       const puppy = contract.methods
-        .addPuppy(
-          value.name,
+        .addOwnPuppy(
+          value.name.toUpperCase(),
           value.dob,
           value.microchip,
           value.damID,
           value.sireID,
-          value.sex,
-          value.ownerPublicKey
+          value.sex
         )
         .encodeABI();
 
@@ -58,14 +58,14 @@ const Register = () => {
         to: setting.Ethereum.ContractAddress, // Required except during contract publications.
         value: "0x00", // Only required to send ether to the recipient from the initiating external account.
         data: puppy, // Optional, but used for defining smart contract creation and interaction.
-        chainId: 3, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+        chainId: 3 // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
       };
 
       // txHash is a hex string
       // As with any RPC call, it may throw an error
       const txHash = await ethereum.request({
         method: "eth_sendTransaction",
-        params: [transactionParameters],
+        params: [transactionParameters]
       });
       setTxHash(txHash);
       setShowTxHash(true);
@@ -76,97 +76,91 @@ const Register = () => {
 
   return (
     <div id="register">
-      <h2 className="mx-auto mb-5">Register your dog on the Ethereum blockchain</h2>
+      <h2 className="mx-auto mb-5">
+        Register your dog on the Ethereum blockchain
+      </h2>
       <Alert variant="danger" show={showError}>
         {error}
       </Alert>
       <Alert variant="primary" show={showTxHash}>
         {txHash}
       </Alert>
-      <Formik
-        initialValues={{
-          name: "",
-          dob: "",
-          sex: "",
-          microchip: "",
-          damID: "",
-          sireID: "",
-          ownerPublicKey: "0x00",
-        }}
-        onSubmit={onSubmit}
-      >
-        <Form className="mt-5">
-          <BForm.Group>
-            <BForm.Label className="d-block my-3">Name</BForm.Label>
-            <Field
-              id="name"
-              name="name"
-              placeholder=""
-              className="d-block my-3 w-100"
-            />
-          </BForm.Group>
-          <BForm.Group>
-            <BForm.Label className="d-block my-3">Date Of Birth</BForm.Label>
-            <Field
-              id="dob"
-              name="dob"
-              placeholder=""
-              className="d-block my-3 w-100"
-            />
-          </BForm.Group>
-          <BForm.Group>
-            <BForm.Label>
-              <Field type="radio" id="sex" name="sex" value="0" />
-              Male
-            </BForm.Label>
-            <BForm.Label>
-              <Field type="radio" id="sex" name="sex" value="1" />
-              Female
-            </BForm.Label>
-          </BForm.Group>
-          <BForm.Group>
-            <BForm.Label className="d-block my-3">Microchip</BForm.Label>
-            <Field
-              id="microchip"
-              name="microchip"
-              placeholder="0x00"
-              className="d-block my-3 w-100"
-            />
-          </BForm.Group>
-          <BForm.Group>
-            <BForm.Label className="d-block my-3">Dam ID</BForm.Label>
-            <Field
-              id="damID"
-              name="damID"
-              placeholder=""
-              className="d-block my-3 w-100"
-            />
-          </BForm.Group>
-          <BForm.Group>
-            <BForm.Label className="d-block my-3">Sire ID</BForm.Label>
-            <Field
-              id="sireID"
-              name="sireID"
-              placeholder=""
-              className="d-block my-3 w-100"
-            />
-          </BForm.Group>
-          <BForm.Group>
-            <BForm.Label className="d-block my-3">Owner Public Key</BForm.Label>
-            <Field
-              id="ownerPublicKey"
-              name="ownerPublicKey"
-              placeholder=""
-              className="d-block my-3 w-100"
-            />
-          </BForm.Group>
-          <Button variant="primary" type="submit">
-            Register
-          </Button>
-        </Form>
-      </Formik>
+      <div className="md">
+        <Formik
+          initialValues={{
+            name: "",
+            dob: "",
+            sex: "",
+            microchip: "",
+            damID: 0,
+            sireID: 0
+          }}
+          onSubmit={onSubmit}
+        >
+          <Form className="mt-4">
+            <BForm.Group>
+              <BForm.Label className="d-block my-3">Name</BForm.Label>
+              <Field
+                id="name"
+                name="name"
+                placeholder=""
+                className="d-block my-3 w-100"
+              />
+            </BForm.Group>
+            <BForm.Group>
+              <BForm.Label className="d-block my-3">Date Of Birth</BForm.Label>
+              <Field
+                id="dob"
+                name="dob"
+                placeholder=""
+                className="d-block my-3 w-100"
+              />
+            </BForm.Group>
+            <BForm.Group>
+              <BForm.Label>
+                <Field type="radio" id="sex" name="sex" value="0" />
+                Male
+              </BForm.Label>
+              <BForm.Label>
+                <Field type="radio" id="sex" name="sex" value="1" />
+                Female
+              </BForm.Label>
+            </BForm.Group>
+            <BForm.Group>
+              <BForm.Label className="d-block my-3">Microchip</BForm.Label>
+              <Field
+                id="microchip"
+                name="microchip"
+                placeholder="0x00"
+                className="d-block my-3 w-100"
+              />
+            </BForm.Group>
+            <BForm.Group>
+              <BForm.Label className="d-block my-3">Dam ID</BForm.Label>
+              <Field
+                id="damID"
+                name="damID"
+                placeholder="0"
+                className="d-block my-3 w-100"
+              />
+            </BForm.Group>
+            <BForm.Group>
+              <BForm.Label className="d-block my-3">Sire ID</BForm.Label>
+              <Field
+                id="sireID"
+                name="sireID"
+                placeholder="0"
+                className="d-block my-3 w-100"
+              />
+            </BForm.Group>
+            <Button variant="primary" type="submit">
+              Register
+            </Button>
+          </Form>
+        </Formik>
+      </div>
     </div>
   );
-}
+};
 
 export default Register;

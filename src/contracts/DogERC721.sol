@@ -51,6 +51,10 @@ contract DogERC721 is ERC721, Ownable {
         }
     }
 
+    function addOwnPuppy(string calldata name, uint256 dob, bytes32 microchip, Sex sex, uint256 dam, uint256 sire) external onlyOwner() {
+        _addPuppy(name, dob, microchip, sex, dam, sire, msg.sender);
+    }
+
     function addPuppy(string calldata name, uint256 dob, bytes32 microchip, Sex sex, uint256 dam, uint256 sire, address owner) external onlyOwner() {
         _addPuppy(name, dob, microchip, sex, dam, sire, owner);
     }
@@ -60,6 +64,7 @@ contract DogERC721 is ERC721, Ownable {
         pack.push(Dog(name, dob, microchip, dam, sire, sex, now, owner));
 
         _count += 1;
+        _safeMint(owner, id);
 
         emit Transfer(owner, owner, id);
         emit PuppyAdded(id);
