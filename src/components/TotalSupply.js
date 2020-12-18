@@ -23,7 +23,7 @@ const TotalSupply = () => {
   }
 
   const loadSupply = async () => {
-    const result = await contract.methods.totalSupply().call();
+    const result = await contract.methods.count().call();
     console.log(result);
     setSupply(result);
   }
@@ -32,7 +32,7 @@ const TotalSupply = () => {
   loadBreed();
 
   return (
-    <h2>Total Supply {supply} of {breed}</h2>
+    <h2>{supply} {breed}</h2>
   );
 };
 
