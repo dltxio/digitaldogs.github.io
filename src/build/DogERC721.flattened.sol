@@ -1715,6 +1715,7 @@ struct Dog {
     uint256 sire;
     Sex sex;
     uint256 timestamp;
+    address owner;
 }
 
 contract DogERC721 is ERC721, Ownable {
@@ -1734,20 +1735,19 @@ contract DogERC721 is ERC721, Ownable {
         //_name = "BEAGLES";
         //_symbol = "DD";
         // register the supported interfaces to conform to ERC721 via ERC165
-        //_registerInterface(_INTERFACE_ID_ERC721_METADATA);
+        _registerInterface(_INTERFACE_ID_ERC721_METADATA);
     }
 
     function count() public view returns (uint256) {
         return _count;
     }
 
-    function addLitter(uint256 dob, uint256 dam, uint256 sire, uint256 numberOfMales, uint256 numberOfFemales, address owner) external onlyOwner() {
-
-        for (uint256 i = 0; i < numberOfMales; i++) {
+    function addLitter(uint256 dob, uint256 dam, uint256 sire, uint256 males, uint256 females, address owner) external onlyOwner() {
+        for (uint256 i = 0; i < males; i++) {
             _addPuppy("", dob, 0x00, Sex.Male, dam, sire, owner);
         }
 
-        for (uint256 i = 0; i < numberOfFemales; i++) {
+        for (uint256 i = 0; i < females; i++) {
             _addPuppy("", dob, 0x00, Sex.Female, dam, sire, owner);
         }
     }
@@ -1758,27 +1758,36 @@ contract DogERC721 is ERC721, Ownable {
 
     function _addPuppy(string memory name, uint256 dob, bytes32 microchip, Sex sex, uint256 dam, uint256 sire, address owner) internal {
         uint256 id = pack.length;
-        pack.push(Dog(name, dob, microchip, dam, sire, sex, now));
+        pack.push(Dog(name, dob, microchip, dam, sire, sex, now, owner));
+
+        _count += 1;
 
         emit Transfer(owner, owner, id);
         emit PuppyAdded(id);
     }
 
     function getPuppy(uint256 tokenId) external view returns (string memory, uint256, Sex, uint256, uint256) {
-        //address owner = ownerOf(_tokenId);
         return (
             pack[tokenId].name,
             pack[tokenId].dob,
             pack[tokenId].sex,
             pack[tokenId].dam,
             pack[tokenId].sire
-            //owner
         );
     }
 
     function removePuppy(uint256 tokenId) external onlyOwner() {
         delete pack[tokenId];
+        _count -= 1;
         emit PuppyRemoved(tokenId);
+    }
+        
+    function updateDam(uint256 tokenId, uint256 dam) external onlyDogOwner(tokenId) {
+        pack[tokenId].dam = dam;
+    }
+
+    function updateSire(uint256 tokenId, uint256 sire) external onlyDogOwner(tokenId) {
+        pack[tokenId].sire = sire;
     }
 
     function updateTitle(uint256 tokenId, string calldata name) external onlyOwner() {
@@ -1792,8 +1801,8 @@ contract DogERC721 is ERC721, Ownable {
     event PuppyAdded(uint256 tokenId);
     event PuppyRemoved(uint256 tokenId);
 
-    modifier onlyDogOwner() {
-
+    modifier onlyDogOwner(uint256 tokenId) {
+        require(pack[tokenId].owner == msg.sender, "Only puppy owner can perform this function");
         _;
     }
 }

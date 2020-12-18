@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./IERC780.sol";
 
 //https://github.com/ethereum/EIPs/issues/780
-contract BeedersRegistry is IERC780, Ownable {
+contract BeedersRegistry is Ownable {
 
     mapping(address => mapping(address => mapping(bytes32 => bytes32))) public registry;
 
@@ -30,10 +30,5 @@ contract BeedersRegistry is IERC780, Ownable {
     }
 
     event ClaimSet(address indexed issuer, address indexed subject, bytes32 indexed key, bytes32 value, uint updatedAt);
-
-    event ClaimRemoved(
-        address indexed issuer,
-        address indexed subject,
-        bytes32 indexed key,
-        uint removedAt);
+    event ClaimRemoved(address indexed issuer, address indexed subject, bytes32 indexed key, uint removedAt);
 }
