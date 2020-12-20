@@ -107,13 +107,13 @@ Starting migrations...
 
    Deploying 'Migrations'
    ----------------------
-   > transaction hash:    0x1beb156093284e9080fc097ff81318a663f63ee9f1e4d2277e1258658a4f5dd1
-   > Blocks: 1            Seconds: 9
-   > contract address:    0x738F8CDEe7aB23EbE21347392FF74B6636E2E0Ae
-   > block number:        7738797
-   > block timestamp:     1608258754
+   > transaction hash:    0x6249788f26d9d59744e57f800b269c6852493e5d17b0f7dabc1b12e3cda540e1
+   > Blocks: 1            Seconds: 14
+   > contract address:    0xC298F0b4E6Bf3605bB7259b76f4ea663fAdF7A3e
+   > block number:        7739734
+   > block timestamp:     1608272891
    > account:             0x57A4218BF3Fd3936B22B44034117Fbb4750fbaF6
-   > balance:             0.62224543
+   > balance:             0.542948767
    > gas used:            164379
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -121,8 +121,8 @@ Starting migrations...
 
    Pausing for 2 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 7738798)
-   > confirmation number: 2 (block: 7738799)
+   > confirmation number: 1 (block: 7739735)
+   > confirmation number: 2 (block: 7739736)
 
    > Saving migration to chain.
    > Saving artifacts
@@ -135,30 +135,29 @@ Starting migrations...
 
    Deploying 'DogERC721'
    ---------------------
-   > transaction hash:    0x64844e3a9e42ac4398812cb7015784f0737165db0a1f47bc54c694ffd11fa9c3
-   > Blocks: 1            Seconds: 5
-   > contract address:    0xcE530872940bad92F774014e8DA52c15ed8E658F
-   > block number:        7738801
-   > block timestamp:     1608258814
+   > transaction hash:    0x8edf682424cdb693f5ac8ed2ef6321d6f255025bd0838e5ade60dc06a2841969
+   > Blocks: 2            Seconds: 21
+   > contract address:    0x72b4b5EaD44F1e3C50bea63bfDA56cf445662013
+   > block number:        7739739
+   > block timestamp:     1608272966
    > account:             0x57A4218BF3Fd3936B22B44034117Fbb4750fbaF6
-   > balance:             0.54777559
-   > gas used:            3681151
+   > balance:             0.463616747
+   > gas used:            3924260
    > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.07362302 ETH
+   > total cost:          0.0784852 ETH
 
    Pausing for 2 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 7738802)
-   > confirmation number: 2 (block: 7738803)
+   > confirmation number: 1 (block: 7739740)
+   > confirmation number: 2 (block: 7739741)
 
    > Saving migration to chain.
    > Saving artifacts
    -------------------------------------
-   > Total cost:          0.07362302 ETH
+   > Total cost:           0.0784852 ETH
 
 
 Summary
 =======
 > Total deployments:   2
-> Final cost:          0.0769106 ETH

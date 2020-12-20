@@ -278,7 +278,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 136,
-        "sourceUnit": 893,
+        "sourceUnit": 927,
         "src": "57:52:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -289,7 +289,7 @@
         "id": 3,
         "nodeType": "ImportDirective",
         "scope": 136,
-        "sourceUnit": 730,
+        "sourceUnit": 764,
         "src": "110:23:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -304,10 +304,10 @@
               "id": 4,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 892,
+              "referencedDeclaration": 926,
               "src": "209:7:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$892",
+                "typeIdentifier": "t_contract$_Ownable_$926",
                 "typeString": "contract Ownable"
               }
             },
@@ -317,8 +317,8 @@
           }
         ],
         "contractDependencies": [
-          789,
-          892
+          823,
+          926
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -326,8 +326,8 @@
         "id": 135,
         "linearizedBaseContracts": [
           135,
-          892,
-          789
+          926,
+          823
         ],
         "name": "BeedersRegistry",
         "nodeType": "ContractDefinition",
@@ -2041,7 +2041,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 136,
-        "sourceUnit": 893,
+        "sourceUnit": 927,
         "src": "57:52:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2052,7 +2052,7 @@
         "id": 3,
         "nodeType": "ImportDirective",
         "scope": 136,
-        "sourceUnit": 730,
+        "sourceUnit": 764,
         "src": "110:23:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2067,10 +2067,10 @@
               "id": 4,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 892,
+              "referencedDeclaration": 926,
               "src": "209:7:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$892",
+                "typeIdentifier": "t_contract$_Ownable_$926",
                 "typeString": "contract Ownable"
               }
             },
@@ -2080,8 +2080,8 @@
           }
         ],
         "contractDependencies": [
-          789,
-          892
+          823,
+          926
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -2089,8 +2089,8 @@
         "id": 135,
         "linearizedBaseContracts": [
           135,
-          892,
-          789
+          926,
+          823
         ],
         "name": "BeedersRegistry",
         "nodeType": "ContractDefinition",
@@ -3783,7 +3783,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.23",
-  "updatedAt": "2020-12-18T02:32:15.691Z",
+  "updatedAt": "2020-12-18T06:27:45.548Z",
   "devdoc": {
     "methods": {
       "owner()": {
