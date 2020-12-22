@@ -14,11 +14,14 @@ module.exports = async (deployer, network, accounts) => {
 
     const parsedData = await neatCsv(data);
 
-    parsedData.forEach(element => {
-      console.log(element);
-      const dob = new Date(element.DOB).valueOf()
+    parsedData.forEach(async (dog) => {
+      console.log(dog);
+
+      const dob = new Date(dog.DOB).valueOf()
       console.log(dob);
-      await dogs.addPuppy(datum[0], datum[1], datum[2], datum[3], datum[4], datum[5], datum[6]);
+
+      //string calldata name, uint256 dob, bytes32 microchip, Sex sex, uint256 dam, uint256 sire, address owner
+      await contract.addPuppy(dog.Name.toUpperCase(), dob, dog.Microchip, dog.Sex, dog.Dam, dog.Sire, dog.Owner);
     });
   });
 };
