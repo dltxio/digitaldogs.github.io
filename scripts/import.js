@@ -1,4 +1,3 @@
-const parse = require("csv-parse");
 const Web3 = require("web3");
 
 const fs = require("fs");
@@ -6,7 +5,6 @@ const neatCsv = require("neat-csv");
 
 const filePath = "../data/beagles.csv";
 fs.readFile(filePath, async (error, data) => {
-  
   if (error) {
       return console.log("error reading file");
   }
