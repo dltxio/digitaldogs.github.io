@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.2;
 
+import "./IClaims.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -17,11 +18,12 @@ struct Dog {
     address owner;
 }
 
-contract DogERC721 is ERC721, Ownable {
+contract DogERC721 is ERC721, IClaims, Ownable {
     mapping(address => bool) private _writers;
     mapping(bytes32 => Dog) private _dogs; 
 
     Dog[] public pack;
+    mapping(uint256 => mapping(address => mapping(bytes32 => bytes32))) public registry;
 
     string private _name;
     string private _symbol;
@@ -100,7 +102,35 @@ contract DogERC721 is ERC721, Ownable {
 
     function updateMicrochip(uint256 tokenId, bytes32 microchip) external onlyOwner() {
         pack[tokenId].microchip = microchip;
+        _setClaim(tokenId, msg.sender, "MICROCHIP NO", microchip);
     }
+
+    // create or update claims
+    function setClaim(uint256 tokenId, address issuer, bytes32 key, bytes32 value) external override onlyOwner() {
+        _setClaim(tokenId, issuer, key, value);
+    }
+
+    function setSelfClaim(uint256 tokenId, bytes32 key, bytes32 value) external override onlyDogOwner(tokenId) {
+        _setClaim(tokenId, msg.sender, key, value);
+    }
+
+    function getClaim(uint256 tokenId, address issuer, bytes32 key) external override view returns(bytes32) {
+        return registry[tokenId][issuer][key];
+    }
+
+    function removeClaim(uint256 tokenId, address issuer, bytes32 key) external override {
+        require(msg.sender == issuer, "Only issuer");
+        delete registry[tokenId][issuer][key];
+        emit ClaimRemoved(msg.sender, tokenId, key, now);
+    }
+
+    function _setClaim(uint256 tokenId, address issuer, bytes32 key, bytes32 value) private {
+        registry[tokenId][issuer][key] = value;
+        emit ClaimSet(msg.sender, tokenId, key, value, now);
+    }
+
+    event ClaimSet(address indexed issuer, uint indexed tokenId, bytes32 indexed key, bytes32 value, uint updatedAt);
+    event ClaimRemoved(address indexed issuer, uint indexed tokenId, bytes32 indexed key, uint removedAt);
 
     event PuppyAdded(uint256 tokenId);
     event PuppyRemoved(uint256 tokenId);

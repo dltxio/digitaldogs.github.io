@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./IERC780.sol";
 
 //https://github.com/ethereum/EIPs/issues/780
-contract BeedersRegistry is IERC780, Ownable {
+contract Beeders is IERC780, Ownable {
 
     mapping(address => mapping(address => mapping(bytes32 => bytes32))) public registry;
 

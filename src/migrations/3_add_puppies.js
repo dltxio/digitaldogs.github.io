@@ -14,12 +14,6 @@ fs.readFile(filePath, async (error, data) => {
 
   parsedData.forEach(async (dog) => {
     dogs.push(dog);
-
-    //const dob = new Date(dog.DOB).valueOf()
-    //console.log(dob);
-
-    //string calldata name, uint256 dob, bytes32 microchip, Sex sex, uint256 dam, uint256 sire, address owner
-    //await contract.addPuppy(dog.Name.toUpperCase(), dob, dog.Microchip, dog.Sex, dog.Dam, dog.Sire, dog.Owner);
   });
 });
 
