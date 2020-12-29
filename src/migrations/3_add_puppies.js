@@ -26,11 +26,15 @@ module.exports = async (deployer, network, accounts) => {
   if (dogs.length > 0) {
     dogs.forEach(async dog => {
       //console.log(dog);
-      //console.log(dog.Name);
-      const dob = moment(dog.DOB).format("YYYY-MM-DD");
-      console.log(dob);
+
+      const ts = moment(dog.DOB, "YYYY-MM-DD").unix();
+      const dob = moment.unix(ts);
+      console.log(dob.valueOf());
+
+      
+      //console.log(dob);
       //await contract.addPuppy("TEST", 0, "0x00", 0, 0, 0, accounts[0]);
-      //await contract.addPuppy(dog.Name.toUpperCase(), 0, dog.Microchip, dog.Sex, dog.Dam, dog.Sire, dog.Owner);
+      await contract.addPuppy(dog.Name.toUpperCase(), dob.valueOf(), dog.Microchip, dog.Sex, dog.Dam, dog.Sire, dog.Owner);
     });
   }
 };
