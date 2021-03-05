@@ -11,9 +11,9 @@ https://rinkeby.etherscan.io/address/0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35
 
 ## Testnet:
 
-HDWalletProvider:https://rinkeby.infura.io/v3/ 
-ContractAddress: "0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35" 
-WebsocketProvider:wss://rinkeby.infura.io/ws/v3/ 
+HDWalletProvider:https://rinkeby.infura.io/v3/  
+ContractAddress: "0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35"  
+WebsocketProvider:wss://rinkeby.infura.io/ws/v3/  
 
 Owner: `0x57A4218BF3Fd3936B22B44034117Fbb4750fbaF6`  
 Key:  
