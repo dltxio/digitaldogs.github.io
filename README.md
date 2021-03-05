@@ -7,7 +7,7 @@
 
 ### Rinkeby
 
-https://rinkeby.etherscan.io/address/0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35
+https://rinkeby.etherscan.io/address/0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35 
 
 `Testnet:`
   `HDWalletProvider:https://rinkeby.infura.io/v3/`
@@ -15,8 +15,9 @@ https://rinkeby.etherscan.io/address/0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35
   `WebsocketProvider:wss://rinkeby.infura.io/ws/v3/`
 
 
-Owner: `0x57A4218BF3Fd3936B22B44034117Fbb4750fbaF6`  Key: ``
-Contract: `0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35`
+Owner: `0x57A4218BF3Fd3936B22B44034117Fbb4750fbaF6`  
+Key: ``  
+Contract: `0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35`  
 
 ### Mainnet 
 
@@ -30,15 +31,13 @@ Contract: `0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35`
 
 ### Other
 
-Mainnet owner MEW Connect `0x5695d8049763b985B310F9047A0bD5376580B56C`
+Mainnet owner MEW Connect `0x5695d8049763b985B310F9047A0bD5376580B56C` 
 
 ## Links
 
-`https://rinkeby.opensea.io/assets/0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c/0`
-
-`https://opensea.io/assets/0x8f41dbc402d8f110f4ab8d551f41b821cbff0376/0` (Working in trust v2)
-
-`https://opensea.io/assets/0x4390282c7d623edee9aacb971303077aba2d5e14/0`
+`https://rinkeby.opensea.io/assets/0x3cfa8ea36fc9bef5c666af8a5fa2d27960cd030c/0` 
+`https://opensea.io/assets/0x8f41dbc402d8f110f4ab8d551f41b821cbff0376/0` (Working in trust v2) 
+`https://opensea.io/assets/0x4390282c7d623edee9aacb971303077aba2d5e14/0` 
 
 ## Address verification
 
