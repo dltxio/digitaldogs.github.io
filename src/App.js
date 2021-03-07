@@ -4,7 +4,7 @@ import Nav from "./components/Nav";
 import Register from "./components/Register";
 import TotalSupply from "./components/TotalSupply";
 
-import "./css/stylish-portfolio.min.css";
+import "./css/stylish-portfolio.css";
 import "./vendor/fontawesome-free/css/all.min.css";
 import "./vendor/simple-line-icons/css/simple-line-icons.css";
 // import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic";
