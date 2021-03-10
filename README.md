@@ -7,17 +7,13 @@
 
 ### Rinkeby
 
-https://rinkeby.etherscan.io/address/0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35 
-
-## Testnet:
-
 HDWalletProvider:https://rinkeby.infura.io/v3/  
-ContractAddress: "0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35"  
+ContractAddress: "0x781b734a4c85e57F91138a02012fC186Ec1D3C41"  
 WebsocketProvider:wss://rinkeby.infura.io/ws/v3/  
 
 Owner: `0x57A4218BF3Fd3936B22B44034117Fbb4750fbaF6`  
 Key:  
-Contract: `0x4b68878E484120fDdE766E1423aFD8d7eA3e2e35`  
+Contract: `0x781b734a4c85e57F91138a02012fC186Ec1D3C41`  
 
 ### Mainnet
 

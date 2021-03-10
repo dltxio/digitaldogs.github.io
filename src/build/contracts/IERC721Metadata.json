@@ -896,8 +896,8 @@
     "version": "0.6.2+commit.bacdbe57.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.0.23",
-  "updatedAt": "2020-12-29T03:59:25.306Z",
+  "schemaVersion": "3.2.5",
+  "updatedAt": "2021-03-10T05:38:15.941Z",
   "devdoc": {
     "details": "See https://eips.ethereum.org/EIPS/eip-721",
     "methods": {

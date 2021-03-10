@@ -3,7 +3,7 @@ const Web3 = require("web3");
 const fs = require("fs");
 const neatCsv = require("neat-csv");
 
-const filePath = "../data/beagles.csv";
+const filePath = "./beagles.csv";
 fs.readFile(filePath, async (error, data) => {
   if (error) {
       return console.log("error reading file");

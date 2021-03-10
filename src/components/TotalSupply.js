@@ -8,7 +8,8 @@ const TotalSupply = () => {
   const [supply, setSupply] = useState(0);
   const [breed, setBreed] = useState("");
 
-  console.log(process.env.REACT_APP_RINKEBY_URL);
+  console.log(process.env.REACT_APP_CONTRACT_ADDRESS);
+
   const web3 = new Web3(new Web3.providers.WebsocketProvider(process.env.REACT_APP_NODE));
 
   const contract = new web3.eth.Contract(

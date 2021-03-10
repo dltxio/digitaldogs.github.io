@@ -50,8 +50,6 @@ const App = () => {
               <p className="lead mb-5" id="totalSupply">
                 <TotalSupply></TotalSupply>
               </p>
-
-              <a className="btn btn-dark btn-xl js-scroll-trigger" href="#services">Demo</a>
             </div>
           </div>
         </div>

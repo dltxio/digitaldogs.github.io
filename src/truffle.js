@@ -7,9 +7,9 @@ module.exports = {
       provider: () => {
         return new HDWalletProvider({
           mnemonic: {
-            phrase: "nominee vacant warfare luxury heart mixed end law garden dignity report wrist" //process.env.RINKEBY_MNEMONIC
+            phrase: process.env.RINKEBY_MNEMONIC
           },
-          providerOrUrl: "https://rinkeby.infura.io/v3/f22ec9acdf944e1eb2dc04ed2bea08e5"
+          providerOrUrl: process.env.RINKEBY_NODE
         })
       },
       network_id: "4",
